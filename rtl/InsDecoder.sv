@@ -12,6 +12,8 @@ module InsDecoder(
     output logic        mem_to_reg
 );
 
+    import ALU_ops::*;
+
     // ignoring FENCE, ECALL, EBREAK right now
     // todo (maybe): specify type of comparison
 
@@ -23,32 +25,7 @@ module InsDecoder(
     assign opcode   = instr[6:0];
     assign funct3   = instr[14:12];
     assign funct7   = instr[31:25];
-
-    // From alu.sv
-    // RV32I Base Operations
-    localparam ADD  = 5'b00000;
-    localparam SUB  = 5'b00001;
-    localparam SLL  = 5'b00010; //shift left
-    localparam SLT  = 5'b00011; //set less than
-    localparam SLTU = 5'b00100; // same but unsigned
-    localparam XOR  = 5'b00101;
-    localparam SRL  = 5'b00110; //shift right
-    localparam SRA  = 5'b00111; // shift right but fill w/ sign bit
-    localparam OR   = 5'b01000;
-    localparam AND  = 5'b01001;
-
-    // RV32M Multiply/Divide Operations
-    // mulw dont exist cus we in 32 bit
-    // page 77
-    localparam MUL    = 5'b01010;
-    localparam MULH   = 5'b01011;
-    localparam MULHSU = 5'b01100;
-    localparam MULHU  = 5'b01101;
-    localparam DIV    = 5'b01110;
-    localparam DIVU   = 5'b01111;
-    localparam REM    = 5'b10000;
-    localparam REMU   = 5'b10001;
-
+    
     localparam RTYPE = 7'b0110011;
     localparam ITYPE = 7'b0010011;
     localparam LOADTYPE = 7'b0000011;
@@ -71,28 +48,28 @@ module InsDecoder(
                 reg_write   = 1;
                 alu_src     = 0;    // second operand = register
                 case({funct7, funct3})
-                    10'b0000000000: alu_op = ADD;
-                    10'b0100000000: alu_op = SUB;
-                    10'b0000000001: alu_op = SLL;
-                    10'b0000000010: alu_op = SLT;
-                    10'b0000000011: alu_op = SLTU;
-                    10'b0000000100: alu_op = XOR;
-                    10'b0000000101: alu_op = SRL;
-                    10'b0100000101: alu_op = SRA;
-                    10'b0000000110: alu_op = OR;
-                    10'b0000000111: alu_op = AND;
+                    10'b0000000000: alu_op = ALU_ADD;
+                    10'b0100000000: alu_op = ALU_SUB;
+                    10'b0000000001: alu_op = ALU_SLL;
+                    10'b0000000010: alu_op = ALU_SLT;
+                    10'b0000000011: alu_op = ALU_SLTU;
+                    10'b0000000100: alu_op = ALU_XOR;
+                    10'b0000000101: alu_op = ALU_SRL;
+                    10'b0100000101: alu_op = ALU_SRA;
+                    10'b0000000110: alu_op = ALU_OR;
+                    10'b0000000111: alu_op = ALU_AND;
 
                     // --- RV32M multiplication instructions ---
-                    10'b0000001000: alu_op = MUL;
-                    10'b0000001001: alu_op = MULH;
-                    10'b0000001010: alu_op = MULHSU;
-                    10'b0000001011: alu_op = MULHU;
+                    10'b0000001000: alu_op = ALU_MUL;
+                    10'b0000001001: alu_op = ALU_MULH;
+                    10'b0000001010: alu_op = ALU_MULHSU;
+                    10'b0000001011: alu_op = ALU_MULHU;
 
                     // --- RV32M division / remainder ---
-                    10'b0000001100: alu_op = DIV;
-                    10'b0000001101: alu_op = DIVU;
-                    10'b0000001110: alu_op = REM;
-                    10'b0000001111: alu_op = REMU;
+                    10'b0000001100: alu_op = ALU_DIV;
+                    10'b0000001101: alu_op = ALU_DIVU;
+                    10'b0000001110: alu_op = ALU_REM;
+                    10'b0000001111: alu_op = ALU_REMU;
 
                     default:        alu_op = 5'bxxxxx;
                 endcase
@@ -101,12 +78,12 @@ module InsDecoder(
                 reg_write   = 1;
                 alu_src     = 1; // second operand = immediate value
                 case(funct3)
-                    3'b000: alu_op = ADD;   // SUB
-                    3'b010: alu_op = SLT;
-                    3'b011: alu_op = SLTU;
-                    3'b100: alu_op = XOR;
-                    3'b110: alu_op = OR;
-                    3'b111: alu_op = AND;
+                    3'b000: alu_op = ALU_ADD;   // SUB
+                    3'b010: alu_op = ALU_SLT;
+                    3'b011: alu_op = ALU_SLTU;
+                    3'b100: alu_op = ALU_XOR;
+                    3'b110: alu_op = ALU_OR;
+                    3'b111: alu_op = ALU_AND;
                     default: alu_op = 5'bxxxxx;
                 endcase
             end
@@ -115,17 +92,17 @@ module InsDecoder(
                 mem_read    = 1;
                 alu_src     = 1;
                 mem_to_reg  = 1;
-                alu_op      = ADD;  // for address
+                alu_op      = ALU_ADD;  // for address
             end
             STORETYPE: begin
                 mem_write   = 1;
                 alu_src     = 1;
-                alu_op      = ADD;  // for address
+                alu_op      = ALU_ADD;  // for address
             end
             BTYPE: begin
                 branch      = 1;
                 alu_src     = 0;
-                alu_op      = SUB;  // for comparison
+                alu_op      = ALU_SUB;  // for comparison
             end
             JTYPE: begin
                 jump        = 1;
