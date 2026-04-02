@@ -2,8 +2,8 @@
 
 # to use:
 # $ ./test.sh
-#   locates all modules by collecting all files in rtl/ and stripping trailing .sv from names
-#   then builds and tests each individually with tb/[name]/tb.cpp as the testbench and all module source located by entries in tb/[name]/files.f
+#   locates all testable modules by listing through each subdirectory in tb/
+#   then builds and tests each module individually with tb/[name]/tb.cpp as the testbench and all module source located by entries in tb/[name]/files.f
 #
 # $ ./test.sh module1 module2 ...
 #   does the same function as the above command form but you specify module names manually on command line with module1 module2 and so on
@@ -12,8 +12,7 @@
 if [[ $# -gt 0 ]] ; then
     modules=$@
 else
-    names=$(ls rtl)
-    modules=${names//.sv/}
+    modules=$(ls tb)
 fi
 
 totalTests=0
