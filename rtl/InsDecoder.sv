@@ -13,6 +13,7 @@ module InsDecoder(
 );
 
     import ALU_ops::*;
+    import Opcode_ops::*;
 
     // ignoring FENCE, ECALL, EBREAK right now
     // todo (maybe): specify type of comparison
@@ -25,13 +26,6 @@ module InsDecoder(
     assign opcode   = instr[6:0];
     assign funct3   = instr[14:12];
     assign funct7   = instr[31:25];
-    
-    localparam RTYPE = 7'b0110011;
-    localparam ITYPE = 7'b0010011;
-    localparam LOADTYPE = 7'b0000011;
-    localparam STORETYPE = 7'b0100011;
-    localparam BTYPE = 7'b1100011;
-    localparam JTYPE = 7'b1101111;
 
     always_comb begin
         alu_op      = 5'b00000;
