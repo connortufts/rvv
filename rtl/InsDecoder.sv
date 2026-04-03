@@ -9,7 +9,8 @@ module InsDecoder(
     output logic        branch,
     output logic        jump,
     output logic        alu_src,
-    output logic        mem_to_reg
+    output logic        mem_to_reg,
+    output logic        pc_to_alu
 );
 
     import ALU_ops::*;
@@ -36,6 +37,7 @@ module InsDecoder(
         jump        = 0;
         alu_src     = 0;
         mem_to_reg  = 0;
+        pc_to_alu   = 0;
 
         case (opcode)
             RTYPE: begin
@@ -101,6 +103,19 @@ module InsDecoder(
             JTYPE: begin
                 jump        = 1;
                 reg_write   = 1;
+            end
+            LUTYPE: begin
+                reg_write   = 1;
+                alu_src     = 1;        // use immediate
+                alu_op      = ALU_ADD;  // treat as 0 + imm
+                // rs1 should be ignored or force to 0 in datapath
+            end
+            AUTYPE: begin
+                reg_write   = 1;
+                alu_src     = 1;
+                alu_op      = ALU_ADD;  // PC + imm
+                // ALU input A should be PC, not rs1 -> use MUX32 for input A
+                pc_to_alu   = 1;        // select PC instead of rs1
             end
             default: ;
         endcase
