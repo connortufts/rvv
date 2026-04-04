@@ -4,7 +4,7 @@ function adog {
         --graph
         --decorate
         --abbrev=4
-        '--format=format:%C(auto)%h %C(bold blue)%an%C(reset) %s %C(dim white)%ad%C(reset) %C(auto)%d'
+        '--format=format:%C(auto)%h %C(auto)%d %C(bold blue)%an%C(reset) %s %C(dim white)%ad%C(reset)'
         --date=human
     )
     if [[ $# -eq 0 ]] ; then
