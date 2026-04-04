@@ -1,7 +1,5 @@
 module InsDecoder(
-    /* verilator lint_off UNUSEDSIGNAL */
     input [31:0]        instr,
-    /* verilator lint_on UNUSEDSIGNAL */
     output logic [4:0]  alu_op,
     output logic        reg_write,
     output logic        mem_read,

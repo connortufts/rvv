@@ -31,7 +31,7 @@ for module in ${modules} ; do
     echo 'building'
     if [[ -f obj/tb.o ]] ; then rm obj/tb.o ; fi
     if [[ -f obj/tb.d ]] ; then rm obj/tb.d ; fi
-    if ! verilator -sv --cc --Wall --Wpedantic --Mdir obj -CFLAGS '-I../util' -f tb/${module}/files.f --top-module ${module} --exe --build tb/${module}/tb.cpp >>${log} ; then
+    if ! verilator -sv --cc --Wall --Wpedantic --Wno-UNUSED --Mdir obj -CFLAGS '-I../util' -f tb/${module}/files.f --top-module ${module} --exe --build tb/${module}/tb.cpp >>${log} ; then
         echo "verilator failed to compile testbench for ${module}" 1>&2
         exit 1
     fi

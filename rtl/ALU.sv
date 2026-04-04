@@ -20,11 +20,9 @@ module ALU(
     
     // 64 bit multiplication results
     logic signed [63:0] mul_ss; // signed x signed
-    /* verilator lint_off UNUSED */
     // needed to add this cus verilator was tweaking
     logic [63:0] mul_uu; // unsigned x unsigned
     logic signed [63:0] mul_su;    // signed x unsigned
-    /* verilator lint_on UNUSED */
     assign mul_ss = $signed(a) * $signed(b);
     assign mul_uu = $unsigned(a) * $unsigned(b);
     assign mul_su = $signed(a) * $unsigned(b);
