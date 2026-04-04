@@ -1,2 +1,3 @@
+rtl/pkg/ALU_ops.sv
+
 rtl/ALU.sv
-rtl/ALU_ops.sv
