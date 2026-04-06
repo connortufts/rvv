@@ -18,4 +18,41 @@ typedef logic [XLEN - 1 : 0] xreg_t;
 typedef logic [4 : 0]        xreg_addr_t;
 typedef xreg_t               mem_addr_t;
 
+// instruction opcode values
+// see table 72
+typedef enum logic [6 : 0] {
+    OPCODE_LOAD =      7'b0000011,
+    OPCODE_LOAD_FP =   7'b0000111,
+    OPCODE_CUSTOM_0 =  7'b0001011,
+    OPCODE_MISC_MEM =  7'b0001111,
+    OPCODE_OP_IMM =    7'b0010011,
+    OPCODE_AUIPC =     7'b0010111,
+    OPCODE_OP_IMM_32 = 7'b0011011,
+    // reserved        7'b0011111
+    OPCODE_STORE =     7'b0100011,
+    OPCODE_STORE_FP =  7'b0100111,
+    OPCODE_CUSTOM_1 =  7'b0101011,
+    OPCODE_AM0 =       7'b0101111,
+    OPCODE_OP =        7'b0110011,
+    OPCODE_LUI =       7'b0110111,
+    OPCODE_OP_32 =     7'b0111011,
+    // reserved        7'b0111111,
+    OPCODE_MADD =      7'b1000011,
+    OPCODE_MSUB =      7'b1000111,
+    OPCODE_NMSUB =     7'b1001011,
+    OPCODE_NMADD =     7'b1001111,
+    OPCODE_OP_FP =     7'b1010011,
+    OPCODE_OP_V =      7'b1010111,
+    OPCODE_CUSTOM_2 =  7'b1011011,
+    // reserved        7'b1011111
+    OPCODE_BRANCH =    7'b1100011,
+    OPCODE_JALR =      7'b1100111,
+    OPCODE_RESERVED =  7'b1101011,
+    OPCODE_JAL =       7'b1101111,
+    OPCODE_SYSTEM =    7'b1110011,
+    OPCODE_OP_VE =     7'b1110111,
+    OPCODE_CUSTOM_3 =  7'b1111011
+    // reserved        7'b1111111
+} opcode_t;
+
 endpackage
