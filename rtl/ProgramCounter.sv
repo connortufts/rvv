@@ -1,6 +1,6 @@
 module ProgramCounter
 #(
-    parameter rvDefs::mem_addr_t RESET_VALUE = rvDefs::mem_addr_t'(16'h1000)
+    parameter rvDefs::mem_addr_t RESET_VALUE = rvDefs::mem_addr_t'(0)
 )
 (
     input  logic              clk,        // loads next instruction address on rising edge

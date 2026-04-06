@@ -9,9 +9,11 @@ localparam int ILEN =       32; // bits of instruction length
 //localparam int ADDRSPACE_LENGTH = 2 ** XLEN;
 
 localparam int BYTE_BITS = 8;
+localparam int HALFWORD_BITS = BYTE_BITS * 2;
+localparam int WORD_BITS = BYTE_BITS * 4;
 typedef logic [BYTE_BITS - 1 : 0]     byte_t;
-typedef logic [BYTE_BITS * 2 - 1 : 0] halfword_t;
-typedef logic [BYTE_BITS * 4 - 1 : 0] word_t;
+typedef logic [HALFWORD_BITS - 1 : 0] halfword_t;
+typedef logic [WORD_BITS - 1 : 0]     word_t;
 
 typedef logic [ILEN - 1 : 0] instruction_t;
 typedef logic [XLEN - 1 : 0] xreg_t;
