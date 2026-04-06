@@ -55,4 +55,37 @@ typedef enum logic [6 : 0] {
     // reserved        7'b1111111
 } opcode_t;
 
+// operations the x register ALU supports
+typedef enum logic [2 : 0] {
+    XALU_OP_SUM =  3'b000,
+    XALU_OP_SLL =  3'b001,
+    XALU_OP_SLT =  3'b010,
+    XALU_OP_SLTU = 3'b011,
+    XALU_OP_XOR =  3'b100,
+    XALU_OP_SR =   3'b101,
+    XALU_OP_OR =   3'b110,
+    XALU_OP_AND =  3'b111
+} xalu_op_t;
+
+typedef enum logic [1 : 0] {
+    MEMORY_OP_SIZE_BYTE = 2'b00,
+    MEMORY_OP_SIZE_HALF = 2'b01,
+    MEMORY_OP_SIZE_WORD = 2'b10,
+    MEMORY_OP_SIZE_NONE = 2'b11
+} memory_op_size_t;
+
+typedef enum logic [1 : 0] {
+    BRANCH_OP_EQ = 2'b00,
+    BRANCH_OP_LT = 2'b10,
+    BRANCH_OP_LTU = 2'b11,
+    BRANCH_OP_NONE = 2'b01
+} branch_op_t;
+
+typedef enum logic [1 : 0] {
+    WRITE_SRC_NONE = 2'b00,
+    WRITE_SRC_PC = 2'b01,
+    WRITE_SRC_MEM = 2'b10,
+    WRITE_SRC_ALU = 2'b11
+} write_src_t;
+
 endpackage
