@@ -5,80 +5,96 @@
 #include <iostream>
 
 #include "VProgramCounter.h"
-#include "verilated.h"
+
+#define START_ADDR 0x1000
+#define INCREMENT 0x4
 
 int main(int argc, char** argv){
     Verilated::commandArgs(argc, argv);
     VProgramCounter dut;
 
     dut.clk = 0;
-    dut.load = 0;
-    dut.addrIn = 0;
-
-    dut.resetN = 0;
-    dut.enable = 1;
+    dut.loadOffset = false;
+    dut.addrOffset = 0;
+    dut.resetN = !false;
+    dut.enable = true;
     dut.eval();
 
-    dut.clk = 1; dut.eval();
-    dut.clk = 0; dut.eval();
-
-    dut.resetN = 1;
+    // perform initial reset
+    dut.resetN = !true;
     dut.eval();
-
-    uint32_t expected_pc = 0;
-
-    // Test PC increment by 4
-    for(int i = 0; i < 5; i++){
-        dut.clk = 1; dut.eval();
-        dut.clk = 0; dut.eval();
-        expected_pc += 4;
-
-        if(dut.addrOut != expected_pc){
-            std::cerr << "FAIL: increment test\n"
-                      << "Expected PC = " << expected_pc << "\n"
-                      << " got PC     = " << dut.addrOut << std::endl;
-            return EXIT_FAILURE;
-        }
-    }
-
-    // Test loading address
-    dut.addrIn = 100;
-    dut.load = 1;
+    dut.resetN = !false;
     dut.eval();
-
-    dut.clk = 1; dut.eval();
-    dut.clk = 0; dut.eval();
-    
-    expected_pc = 100;
-     
-    if(dut.addrOut != expected_pc){
-        std::cerr << "FAIL: branch test\n"
-                  << "Expected PC = " << expected_pc << "\n"
-                  << " got PC     = " << dut.addrOut << std::endl;
+    if(dut.addrOut != START_ADDR){
+        std::cerr << std::hex
+                  << "FAIL: reset initial test\n"
+                  << "Expected PC = 0x" << START_ADDR << "\n"
+                  << "Observed PC = 0x" << (int)dut.addrOut
+                  << std::dec << std::endl;
         return EXIT_FAILURE;
     }
 
-    // Test stall
-    dut.enable = 0;
-    dut.load = 0;
+    // make sure it sticks for one cycle
+    dut.clk = 1;
     dut.eval();
-
-    dut.clk = 1; dut.eval();
-    dut.clk = 0; dut.eval();
-    dut.clk = 1; dut.eval();
-    dut.clk = 0; dut.eval();
-    dut.clk = 1; dut.eval();
-    dut.clk = 0; dut.eval();
-    dut.clk = 1; dut.eval();
-    dut.clk = 0; dut.eval();
-    
-    if(dut.addrOut != expected_pc){
-        std::cerr << "FAIL: stall test\n"
-                  << "Expected PC = " << expected_pc << "\n"
-                  << " got PC     = " << dut.addrOut << std::endl;
+    dut.clk = 0;
+    dut.eval();
+    if(dut.addrOut != START_ADDR){
+        std::cerr << std::hex
+                  << "FAIL: post reset test\n"
+                  << "Expected PC = 0x" << START_ADDR << "\n"
+                  << "Observed PC = 0x" << (int)dut.addrOut
+                  << std::dec << std::endl;
         return EXIT_FAILURE;
     }
 
+    // increment once
+    dut.clk = 1;
+    dut.eval();
+    dut.clk = 0;
+    dut.eval();
+    if(dut.addrOut != (START_ADDR + INCREMENT)){
+        std::cerr << std::hex
+                  << "FAIL: increment test\n"
+                  << "Expected PC = 0x" << (START_ADDR + INCREMENT) << "\n"
+                  << "Observed PC = 0x" << (int)dut.addrOut
+                  << std::dec << std::endl;
+        return EXIT_FAILURE;
+    }
+    
+    // pause once
+    dut.enable = false;
+    dut.clk = 1;
+    dut.eval();
+    dut.enable = true;
+    dut.clk = 0;
+    dut.eval();
+    if(dut.addrOut != (START_ADDR + INCREMENT)){
+        std::cerr << std::hex
+                  << "FAIL: pause test\n"
+                  << "Expected PC = 0x" << (START_ADDR + INCREMENT) << "\n"
+                  << "Observed PC = 0x" << (int)dut.addrOut
+                  << std::dec << std::endl;
+        return EXIT_FAILURE;
+    }
+
+    // load an offset
+    dut.addrOffset = 0xF0;
+    dut.loadOffset = true;
+    dut.clk = 1;
+    dut.eval();
+    dut.loadOffset = false;
+    dut.clk = 0;
+    dut.eval();
+    if(dut.addrOut != (START_ADDR + INCREMENT + 0xF0)){
+        std::cerr << std::hex
+                  << "FAIL: load test\n"
+                  << "Expected PC = 0x" << (START_ADDR + INCREMENT + 0xF0) << "\n"
+                  << "Observed PC = 0x" << (int)dut.addrOut
+                  << std::dec << std::endl;
+        return EXIT_FAILURE;
+    }
+    
     std::cout << "All tests passed" << std::endl;
     return EXIT_SUCCESS;
 }
