@@ -12,7 +12,7 @@
 if [[ $# -gt 0 ]] ; then
     modules=$@
 else
-    modules=$(ls tb)
+    modules=$(find tb/* -maxdepth 0 -type d)
 fi
 
 log='verilatorTestLog'
@@ -23,20 +23,21 @@ failedTests=0
 
 echo '=========='
 for module in ${modules} ; do
-    echo "testing ${module}"
-    if ! [[ -d tb/${module} ]] ; then
-        echo "no test directory for ${module}" 1>&2
+    name=$(basename ${module})
+    echo "testing ${name}"
+    if ! [[ -d tb/${name} ]] ; then
+        echo "no test directory for ${name}" 1>&2
         exit 1
     fi
     echo 'building'
     if [[ -f obj/tb.o ]] ; then rm obj/tb.o ; fi
     if [[ -f obj/tb.d ]] ; then rm obj/tb.d ; fi
-    if ! verilator -sv --cc --Wall --Wpedantic --Wno-UNUSED --Mdir obj -CFLAGS '-I../util' -f tb/default.f -f tb/${module}/files.f --top-module ${module} --exe --build tb/${module}/tb.cpp >>${log} ; then
-        echo "verilator failed to compile testbench for ${module}" 1>&2
+    if ! verilator -sv --cc --Wall --Wpedantic --Wno-UNUSED --Mdir obj -CFLAGS '-I../util' -f tb/default.f -f tb/${name}/files.f --top-module ${name} --exe --build tb/${name}/tb.cpp >>${log} ; then
+        echo "verilator failed to compile testbench for ${name}" 1>&2
         exit 1
     fi
     echo 'testing'
-    if ./obj/V${module} ; then
+    if ./obj/V${name} ; then
         passedTests=$((passedTests + 1))
         echo 'PASSED'
     else
