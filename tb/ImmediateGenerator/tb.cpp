@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <vector>
 
-#include "VImmediateGen.h"
+#include "VImmediateGenerator.h"
 
 // -----------------------------
 // Helper encoders (IMPORTANT)
@@ -40,7 +40,7 @@ struct ImmTest {
 
 int main(int argc, char** argv) {
     Verilated::commandArgs(argc, argv);
-    VImmediateGen dut;
+    VImmediateGenerator dut;
 
     std::vector<ImmTest> tests = {
 
@@ -84,7 +84,7 @@ int main(int argc, char** argv) {
         dut.instruction = tests[i].instruction;
         dut.eval();
 
-        int32_t result = (int32_t)dut.out;
+        int32_t result = (int32_t)dut.immediate;
 
         if (result != tests[i].expected_imm) {
             std::cout << "Test " << i << " FAILED\n";
