@@ -32,24 +32,23 @@ module InstructionDecoder
     assign rs1 =      rvDefs::xreg_addr_t'(instruction[19 : 15]);
     assign rs2 =      rvDefs::xreg_addr_t'(instruction[24 : 20]);
     assign rd =       rvDefs::xreg_addr_t'(instruction[11 : 7]);
-    assign zeroXaluPrimary = ( // so that we can just access the immediate value from the XALU result
-        (opcode == rvDefs::OPCODE_LUI) ||
-        (opcode == rvDefs::OPCODE_JAL)
+    assign zeroXaluPrimary = (opcode == rvDefs::OPCODE_LUI); // so that we can just access the immediate value from the XALU result
+    assign pcXaluPrimary = ( // to mux in program counter value
+        (opcode == rvDefs::OPCODE_AUIPC) ||
+        (opcode == rvDefs::OPCODE_JAL) ||
+        (opcode == rvDefs::OPCODE_BRANCH)
     );
-    assign pcXaluPrimary = (opcode == rvDefs::OPCODE_AUIPC); // to mux in program counter value
     assign immediateXaluSecondary = ( // all of these opcodes need something done with an immediate value
         (opcode == rvDefs::OPCODE_LUI) ||
         (opcode == rvDefs::OPCODE_AUIPC) ||
         (opcode == rvDefs::OPCODE_JAL) ||
         (opcode == rvDefs::OPCODE_JALR) ||
+        (opcode == rvDefs::OPCODE_BRANCH) ||
         (opcode == rvDefs::OPCODE_LOAD) ||
         (opcode == rvDefs::OPCODE_STORE) ||
         (opcode == rvDefs::OPCODE_OP_IMM)
     );
-    assign xaluArithmeticFlag = ( // when to use subtraction instead of addition and arithmetic instead of logical shift
-        (opcode == rvDefs::OPCODE_BRANCH) ||
-        (opcode == rvDefs::OPCODE_OP && funct7_5)
-    );
+    assign xaluArithmeticFlag = (opcode == rvDefs::OPCODE_OP && funct7_5); // when to use subtraction instead of addition and arithmetic instead of logical shift
     assign unsignedLoad = funct3[2]; // when doing a load, this bit says if it is unsigned or not
     assign storeLoad = (opcode == rvDefs::OPCODE_STORE); // if a memory op is a store vs a load
     assign branchOp = rvDefs::branch_op_t'(opcode == rvDefs::OPCODE_BRANCH ? funct3[2 : 1] : rvDefs::BRANCH_OP_NONE); // what to check for
@@ -86,13 +85,6 @@ module InstructionDecoder
             rvDefs::OPCODE_OP_IMM,
             rvDefs::OPCODE_OP:
                 xaluOp = rvDefs::xalu_op_t'(funct3);
-            rvDefs::OPCODE_BRANCH:
-                begin
-                    if (branchOp == rvDefs::BRANCH_OP_LT)
-                        xaluOp = rvDefs::XALU_OP_SLT;
-                    else if (branchOp == rvDefs::BRANCH_OP_LTU)
-                        xaluOp = rvDefs::XALU_OP_SLTU;
-                end
             default:
                 xaluOp = rvDefs::XALU_OP_SUM;
         endcase
