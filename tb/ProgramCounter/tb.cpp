@@ -6,7 +6,7 @@
 
 #include "VProgramCounter.h"
 
-#define START_ADDR 0x1000
+#define START_ADDR 0x00
 #define INCREMENT 0x4
 
 int main(int argc, char** argv){
@@ -14,8 +14,8 @@ int main(int argc, char** argv){
     VProgramCounter dut;
 
     dut.clk = 0;
-    dut.loadOffset = false;
-    dut.addrOffset = 0;
+    dut.load = false;
+    dut.addrLoad = 0;
     dut.resetN = !false;
     dut.enable = true;
     dut.eval();
@@ -78,18 +78,18 @@ int main(int argc, char** argv){
         return EXIT_FAILURE;
     }
 
-    // load an offset
-    dut.addrOffset = 0xF0;
-    dut.loadOffset = true;
+    // load
+    dut.addrLoad = 0xF0;
+    dut.load = true;
     dut.clk = 1;
     dut.eval();
-    dut.loadOffset = false;
+    dut.load = false;
     dut.clk = 0;
     dut.eval();
-    if(dut.addrOut != (START_ADDR + INCREMENT + 0xF0)){
+    if(dut.addrOut != (0xF0)){
         std::cerr << std::hex
                   << "FAIL: load test\n"
-                  << "Expected PC = 0x" << (START_ADDR + INCREMENT + 0xF0) << "\n"
+                  << "Expected PC = 0x" << (0xF0) << "\n"
                   << "Observed PC = 0x" << (int)dut.addrOut
                   << std::dec << std::endl;
         return EXIT_FAILURE;

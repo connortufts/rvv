@@ -20,8 +20,8 @@ module top
         .clk(sysclk),
         .resetN(sysreset),
         .enable(1'b1),
-        .loadOffset(jump | branchPass),
-        .addrOffset(jump ? aluResult : immediate),
+        .load(jump | branchPass),
+        .addrLoad(aluResult),
         .addrOut(instructionAddr)
     );
 
@@ -29,10 +29,11 @@ module top
     always_comb begin
         case (branchOp)
             rvDefs::BRANCH_OP_EQ:
-                branchPass = ((aluResult == rvDefs::word_t'(0)) ^ branchNegate);
-            rvDefs::BRANCH_OP_LT, 
+                branchPass = ((read1Data == read2Data) ^ branchNegate);
+            rvDefs::BRANCH_OP_LT:
+                branchPass = (($signed(read1Data) < $signed(read2Data)) ^ branchNegate);
             rvDefs::BRANCH_OP_LTU:
-                branchPass = ((aluResult == rvDefs::word_t'(1)) ^ branchNegate);
+                branchPass = ((read1Data < read2Data) ^ branchNegate);
             default: branchPass = 0;
         endcase
     end
