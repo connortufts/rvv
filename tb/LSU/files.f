@@ -1,1 +1,1 @@
-memory_rtl/LSU.sv
+rtl/LSU.sv

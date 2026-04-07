@@ -1,1 +1,1 @@
-memory_rtl/MemoryModule.sv
+rtl/MemoryModule.sv
