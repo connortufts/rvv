@@ -1,9 +1,9 @@
 module InstructionDecoder
 (
     input  rvDefs::instruction_t    instruction,            // value of instruction to decode
-    output rvDefs::xreg_addr_t      rs1,                    // rs1 field
-    output rvDefs::xreg_addr_t      rs2,                    // rs2 field
-    output rvDefs::xreg_addr_t      rd,                     // rd field
+    output rvDefs::xreg_addr_t      rs1,                    // rs1/vs1 field
+    output rvDefs::xreg_addr_t      rs2,                    // rs2/vs2/lumop/somop field
+    output rvDefs::xreg_addr_t      rd,                     // rd/vd/vs3 field
     output logic                    xaluArithmeticFlag,     // arithmetic (HI) vs logical (LO) shift flag (doubles as sub (HI) vs add (LO) flag) 
     output rvDefs::xalu_op_t        xaluOp,                 // operation to perform in XALU
     output logic                    zeroXaluPrimary,        // select x[0] instead of x[rs1] for primary input
@@ -15,7 +15,16 @@ module InstructionDecoder
     output rvDefs::branch_op_t      branchOp,               // for branch operations, comparison to look at and also doubles as not a branch op signal
     output logic                    branchNegate,           // if the branch test should be negated
     output logic                    jump,                   // signals jump operation
-    output rvDefs::write_src_t      writeSource             // where to take writes from to set x[rd]
+    output rvDefs::write_src_t      writeSource,            // where to take writes from to set x[rd]
+
+    output rvDefs::valu_op_t        valuOp,                 // operation to perform in VALU
+    output rvDefs::vec_mode_t       vecMode,                // vector mode
+    output logic                    isVectorOp,             // is a vector operation
+    output logic                    vm,                     // vector masking (0 = mask enabled, 1 = mask disabled)
+    output logic [2 : 0]            nf,                     // specifies the number of fields in each segment, for segment load/stores
+    output logic [2 : 0]            width,                  // specifies size of memory elements, and distinguishes from FP scalar
+    output logic                    mew,                    // extended memory addressing mode
+    output logic [1 : 0]            mop                     // specifies memory addressing mode
 );
 
     // notes for XALU:
@@ -25,10 +34,14 @@ module InstructionDecoder
     rvDefs::opcode_t opcode;
     logic [2 : 0] funct3;
     logic funct7_5;
+    logic [6 : 0] funct7;
+    logic [5 : 0] funct6;
 
     assign opcode =   rvDefs::opcode_t'(instruction[6 : 0]);
     assign funct3 =   instruction[14 : 12];
+    assign funct7 =   instruction[31 : 25];
     assign funct7_5 = instruction[30];
+    assign funct6 =   instruction[31 : 26];
     assign rs1 =      rvDefs::xreg_addr_t'(instruction[19 : 15]);
     assign rs2 =      rvDefs::xreg_addr_t'(instruction[24 : 20]);
     assign rd =       rvDefs::xreg_addr_t'(instruction[11 : 7]);
@@ -62,9 +75,27 @@ module InstructionDecoder
             (rvDefs::memory_op_size_t'(funct3[1 : 0])) :
             (rvDefs::MEMORY_OP_SIZE_NONE)
     );
+    assign isVectorOp = (
+        (opcode == rvDefs::OPCODE_OP_V) ||
+        (opcode == rvDefs::OPCODE_LOAD_FP) ||
+        (opcode == rvDefs::OPCODE_STORE_FP)
+    );
+    logic isVectorMemOp;
+    assign isVectorMemOp = 
+        (opcode == rvDefs::OPCODE_LOAD_FP) ||
+        (opcode == rvDefs::OPCODE_STORE_FP);
+
+    assign vm =       isVectorMemOp ? instruction[25] : 1'b0;
+    assign mop =      isVectorMemOp ? instruction[27 : 26] : 2'b00;
+    assign mew =      isVectorMemOp ? instruction[28] : 1'b0;
+    assign nf =       isVectorMemOp ? instruction[31 : 29] : 3'b000;
+    assign width =    isVectorMemOp ? instruction[14 : 12] : 3'b000;
+    assign vecMode = (opcode == rvDefs::OPCODE_OP_V) ? rvDefs::vec_mode_t'(funct3) : rvDefs::VEC_MODE_IVV;
 
     always_comb begin
         case (opcode)
+            rvDefs::OPCODE_OP_V:
+                writeSource = rvDefs::WRITE_SRC_VEC;
             rvDefs::OPCODE_LUI,
             rvDefs::OPCODE_AUIPC,
             rvDefs::OPCODE_OP_IMM,
@@ -81,12 +112,15 @@ module InstructionDecoder
     end
 
     always_comb begin
+        xaluOp = rvDefs::XALU_OP_SUM;
+        valuOp = rvDefs::VALU_OP_NONE;
         case (opcode)
             rvDefs::OPCODE_OP_IMM,
             rvDefs::OPCODE_OP:
                 xaluOp = rvDefs::xalu_op_t'(funct3);
-            default:
-                xaluOp = rvDefs::XALU_OP_SUM;
+            rvDefs::OPCODE_OP_V:
+                valuOp = rvDefs::valu_op_t'(funct6);
+            default: ;
         endcase
     end
 
