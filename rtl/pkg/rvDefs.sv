@@ -15,6 +15,12 @@ typedef logic [BYTE_BITS - 1 : 0]     byte_t;
 typedef logic [HALFWORD_BITS - 1 : 0] halfword_t;
 typedef logic [WORD_BITS - 1 : 0]     word_t;
 
+localparam logic [11:0] CSR_VSTART = 12'h008;
+localparam logic [11:0] CSR_VXSAT  = 12'h009;
+localparam logic [11:0] CSR_VXRM   = 12'h00A;
+localparam logic [11:0] CSR_VL     = 12'hC20;
+localparam logic [11:0] CSR_VTYPE  = 12'hC21;
+
 typedef logic [ILEN - 1 : 0] instruction_t;
 typedef logic [XLEN - 1 : 0] xreg_t;
 typedef logic [4 : 0]        xreg_addr_t;
@@ -85,9 +91,16 @@ typedef enum logic [1 : 0] {
 
 typedef enum logic [1 : 0] {
     WRITE_SRC_NONE = 2'b00,
-    WRITE_SRC_PC = 2'b01,
+    WRITE_SRC_PC  = 2'b01,
     WRITE_SRC_MEM = 2'b10,
     WRITE_SRC_ALU = 2'b11
 } write_src_t;
+
+typedef struct packed {
+    logic [XLEN-1:0] vl;
+    logic [XLEN-1:0] vtype;
+    logic [XLEN-1:0] vstart;
+    logic            vxsat;
+} rvv_csr_state_t;
 
 endpackage
