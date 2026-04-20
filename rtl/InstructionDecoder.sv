@@ -20,6 +20,7 @@ module InstructionDecoder
     output rvDefs::valu_op_t        valuOp,                 // operation to perform in VALU
     output rvDefs::vec_mode_t       vecMode,                // vector mode
     output logic                    isVectorOp,             // is a vector operation
+    output logic                    isVectorMemOp           // 
     output logic                    vm,                     // vector masking (0 = mask enabled, 1 = mask disabled)
     output logic [2 : 0]            nf,                     // specifies the number of fields in each segment, for segment load/stores
     output logic [2 : 0]            width,                  // specifies size of memory elements, and distinguishes from FP scalar
@@ -75,22 +76,15 @@ module InstructionDecoder
             (rvDefs::memory_op_size_t'(funct3[1 : 0])) :
             (rvDefs::MEMORY_OP_SIZE_NONE)
     );
-    assign isVectorOp = (
-        (opcode == rvDefs::OPCODE_OP_V) ||
-        (opcode == rvDefs::OPCODE_LOAD_FP) ||
-        (opcode == rvDefs::OPCODE_STORE_FP)
-    );
-    logic isVectorMemOp;
-    assign isVectorMemOp = 
-        (opcode == rvDefs::OPCODE_LOAD_FP) ||
-        (opcode == rvDefs::OPCODE_STORE_FP);
+    assign isVectorOp = (opcode == rvDefs::OPCODE_OP_V);
+    assign isVectorMemOp = isVectorMemOp && (instruction[27 : 26] != 2'b00);
 
-    assign vm =       isVectorMemOp ? instruction[25] : 1'b0;
-    assign mop =      isVectorMemOp ? instruction[27 : 26] : 2'b00;
-    assign mew =      isVectorMemOp ? instruction[28] : 1'b0;
-    assign nf =       isVectorMemOp ? instruction[31 : 29] : 3'b000;
-    assign width =    isVectorMemOp ? instruction[14 : 12] : 3'b000;
-    assign vecMode = (opcode == rvDefs::OPCODE_OP_V) ? rvDefs::vec_mode_t'(funct3) : rvDefs::VEC_MODE_IVV;
+    assign vm =       isVectorOp ? instruction[25] : 1'b0;
+    assign mop =      isVectorOp ? instruction[27 : 26] : 2'b00;
+    assign mew =      isVectorOp ? instruction[28] : 1'b0;
+    assign nf =       isVectorOp ? instruction[31 : 29] : 3'b000;
+    assign width =    isVectorOp ? instruction[14 : 12] : 3'b000;
+    assign vecMode = isVectorOp ? rvDefs::vec_mode_t'(funct3) : rvDefs::VEC_MODE_IVV;
 
     always_comb begin
         case (opcode)
