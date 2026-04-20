@@ -6,6 +6,7 @@ module CSR (
     input rvDefs::mem_addr_t    csr_addr,
     input rvDefs::word_t        csr_wdata,
     input rvDefs::word_t        vl_next,
+    input logic                 vl_update,
     input logic                 vxsat_set,
 
     output rvDefs::word_t       csr_rdata,
@@ -53,13 +54,13 @@ module CSR (
             end
 
             // Vector execution
-            // VL is usually updated by hardware after vector ops
-            vl_r <= vl_next;
+            else begin
+                if (vl_update)
+                    vl_r <= vl_next;
 
-            // vxsat is sticky and set by vector arithmetic
-            if (vxsat_set)
-                vxsat_r <= 1'b1;
-
+                if (vxsat_set)
+                    vxsat_r <= 1'b1;
+            end
         end
     end
 
