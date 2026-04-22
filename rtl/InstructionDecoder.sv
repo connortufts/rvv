@@ -15,7 +15,10 @@ module InstructionDecoder
     output rvDefs::branch_op_t      branchOp,               // for branch operations, comparison to look at and also doubles as not a branch op signal
     output logic                    branchNegate,           // if the branch test should be negated
     output logic                    jump,                   // signals jump operation
-    output rvDefs::write_src_t      writeSource             // where to take writes from to set x[rd]
+    output rvDefs::write_src_t      writeSource,            // where to take writes from to set x[rd]
+    output logic                    mret,                   // exception return signal
+    output logic                    ecall,                  // exception call signal
+    output logic                    ebreak                  // exception debug signal
 );
 
     // notes for XALU:
@@ -25,19 +28,23 @@ module InstructionDecoder
     rvDefs::opcode_t opcode;
     logic [2 : 0] funct3;
     logic funct7_5;
+    logic [11:0] funct12;
 
     assign opcode =   rvDefs::opcode_t'(instruction[6 : 0]);
     assign funct3 =   instruction[14 : 12];
     assign funct7_5 = instruction[30];
+    assign funct12 =  instruction[31:20];
     assign rs1 =      rvDefs::xreg_addr_t'(instruction[19 : 15]);
     assign rs2 =      rvDefs::xreg_addr_t'(instruction[24 : 20]);
     assign rd =       rvDefs::xreg_addr_t'(instruction[11 : 7]);
+
     assign zeroXaluPrimary = (opcode == rvDefs::OPCODE_LUI); // so that we can just access the immediate value from the XALU result
     assign pcXaluPrimary = ( // to mux in program counter value
         (opcode == rvDefs::OPCODE_AUIPC) ||
         (opcode == rvDefs::OPCODE_JAL) ||
         (opcode == rvDefs::OPCODE_BRANCH)
     );
+
     assign immediateXaluSecondary = ( // all of these opcodes need something done with an immediate value
         (opcode == rvDefs::OPCODE_LUI) ||
         (opcode == rvDefs::OPCODE_AUIPC) ||
@@ -48,6 +55,7 @@ module InstructionDecoder
         (opcode == rvDefs::OPCODE_STORE) ||
         (opcode == rvDefs::OPCODE_OP_IMM)
     );
+
     assign xaluArithmeticFlag = (opcode == rvDefs::OPCODE_OP && funct7_5); // when to use subtraction instead of addition and arithmetic instead of logical shift
     assign unsignedLoad = funct3[2]; // when doing a load, this bit says if it is unsigned or not
     assign storeLoad = (opcode == rvDefs::OPCODE_STORE); // if a memory op is a store vs a load
@@ -63,6 +71,10 @@ module InstructionDecoder
             (rvDefs::MEMORY_OP_SIZE_NONE)
     );
 
+    assign mret   = (opcode == rvDefs::OPCODE_SYSTEM) && (funct3 == 3'b000) && (funct12 == 12'h302);
+    assign ecall  = (opcode == rvDefs::OPCODE_SYSTEM) && (funct3 == 3'b000) && (funct12 == 12'h000);
+    assign ebreak = (opcode == rvDefs::OPCODE_SYSTEM) && (funct3 == 3'b000) && (funct12 == 12'h001);
+
     always_comb begin
         case (opcode)
             rvDefs::OPCODE_LUI,
@@ -75,6 +87,8 @@ module InstructionDecoder
                 writeSource = rvDefs::WRITE_SRC_PC;
             rvDefs::OPCODE_LOAD:
                 writeSource = rvDefs::WRITE_SRC_MEM;
+            rvDefs::OPCODE_SYSTEM:
+                writeSource = (funct3 != 3'b000) ? rvDefs::WRITE_SRC_CSR : rvDefs::WRITE_SRC_NONE;
             default:
                 writeSource = rvDefs::WRITE_SRC_NONE;
         endcase
