@@ -15,13 +15,12 @@ localparam int DOUBLEWORD_BITS = BYTE_BITS * 8;
 typedef logic [BYTE_BITS - 1 : 0]       byte_t;
 typedef logic [HALFWORD_BITS - 1 : 0]   halfword_t;
 typedef logic [WORD_BITS - 1 : 0]       word_t;
-typedef logic [DOUBLEWORD_BITS - 1 : 0] doubleword_t
+typedef logic [DOUBLEWORD_BITS - 1 : 0] doubleword_t;
 
 typedef logic [ILEN - 1 : 0] instruction_t;
 typedef logic [XLEN - 1 : 0] xreg_t;
 typedef logic [4 : 0]        xreg_addr_t;
 typedef xreg_t               mem_addr_t;
-typedef logic [11 : 0 ]      csr_addr_t;
 
 // instruction opcode values
 // see table 72
@@ -93,7 +92,7 @@ typedef enum logic [1 : 0] {
     WRITE_SRC_ALU = 2'b11
 } write_src_t;
 
-enum csr_addr_t {
+typedef enum logic [11 : 0] {
     CSR_MVENDORID = 12'hF11,
     CSR_MARCHID = 12'hF12,
     CSR_MIMPID = 12'hF13,
@@ -234,6 +233,6 @@ enum csr_addr_t {
     CSR_MHPMEVENT29H = 12'h73D,
     CSR_MHPMEVENT30H = 12'h73E,
     CSR_MHPMEVENT31H = 12'h73F
-};
+} csr_addr_t;
 
 endpackage
