@@ -18,7 +18,7 @@ typedef logic [WORD_BITS - 1 : 0]     word_t;
 typedef logic [ILEN - 1 : 0] instruction_t;
 typedef logic [XLEN - 1 : 0] xreg_t;
 typedef logic [4 : 0]        xreg_addr_t;
-typedef xreg_t               mem_addr_t;
+typedef word_t               mem_addr_t;
 
 // instruction opcode values
 // see table 72
