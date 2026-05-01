@@ -1,0 +1,14 @@
+//macro.vc
+
++libext+.v+.sv
++define+SYNTHESIS
+
+// include below line-by-line the path to all relevant RTL files used to build the Macro
+../rtl/rvDefs.sv
+../rtl/top.sv
+../rtl/ImmediateGenerator.sv
+../rtl/InstructionDecoder.sv
+../rtl/XRegisterFile.sv
+../rtl/XALU.sv
+../rtl/ProgramCounter.sv
++incdir+/ee/166/CHIPKIT/ip/rtl_inc/
