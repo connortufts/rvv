@@ -1,0 +1,9 @@
+{"vcs1":{"timestamp_begin":1777828952.431022222, "rt":1.49, "ut":1.08, "st":0.29}}
+{"vcselab":{"timestamp_begin":1777828954.042533967, "rt":0.53, "ut":0.27, "st":0.10}}
+{"link":{"timestamp_begin":1777828954.669544280, "rt":0.42, "ut":0.13, "st":0.11}}
+{"SNPS_VCS_INTERNAL_ROOT_START_TIME": 1777828951.429911146}
+{"VCS_COMP_START_TIME": 1777828951.429911146}
+{"VCS_COMP_END_TIME": 1777828955.374766240}
+{"VCS_USER_OPTIONS": "-sverilog -v2k_generate +vcs+loopreport+1000 -debug_access+all -timescale=1ps/1ps +lint=all,noVCDE -full64 -diag timescale +notimingchecks -kdb -lca -P /usr/cots/synopsys/verdi/T-2022.06-1/share/PLI/VCS/LINUX64/novas.tab /usr/cots/synopsys/verdi/T-2022.06-1/share/PLI/VCS/LINUX64/pli.a -f ../tbench_M0.vc"}
+{"vcs1": {"peak_mem": 537368}}
+{"stitch_vcselab": {"peak_mem": 271600}}

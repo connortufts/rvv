@@ -1,0 +1,188 @@
+{
+    "std": [
+        "std",
+        "reYIK",
+        "module",
+        1
+    ],
+    "tb_TOP": [
+        "tb_TOP",
+        "GWBjJ",
+        "module",
+        2
+    ],
+    "cm0_memmap_pkg": [
+        "cm0_memmap_pkg",
+        "DMB6g",
+        "module",
+        3
+    ],
+    "rvDefs": [
+        "rvDefs",
+        "jxbgd",
+        "module",
+        4
+    ],
+    "ahb_s_intf_0000": [
+        "ahb_s_intf_0000",
+        "x4Jma",
+        "module",
+        5
+    ],
+    "ahb_m_intf_0000": [
+        "ahb_m_intf_0000",
+        "mrcmV",
+        "module",
+        6
+    ],
+    "ahb_m_intf_0001": [
+        "ahb_m_intf_0001",
+        "gnayi",
+        "module",
+        7
+    ],
+    "reg_intf": [
+        "reg_intf",
+        "MEhxt",
+        "module",
+        8
+    ],
+    "reg_intf_0000": [
+        "reg_intf_0000",
+        "yGkGp",
+        "module",
+        9
+    ],
+    "comm_defs_pkg": [
+        "comm_defs_pkg",
+        "cfzxI",
+        "module",
+        10
+    ],
+    "CRG": [
+        "CRG",
+        "GatgR",
+        "module",
+        11
+    ],
+    "AHB_GPIO": [
+        "AHB_GPIO",
+        "pNpCg",
+        "module",
+        12
+    ],
+    "AHB_SYSCTL": [
+        "AHB_SYSCTL",
+        "jHxrF",
+        "module",
+        13
+    ],
+    "AHB_BUS_0000": [
+        "AHB_BUS_0000",
+        "kmVpb",
+        "module",
+        14
+    ],
+    "AHB_MEM": [
+        "AHB_MEM",
+        "g1vbi",
+        "module",
+        15
+    ],
+    "AHB_MGR_MUX_0000": [
+        "AHB_MGR_MUX_0000",
+        "W2igT",
+        "module",
+        16
+    ],
+    "APB_SYS": [
+        "APB_SYS",
+        "Iq0vt",
+        "module",
+        17
+    ],
+    "COMMCTRL": [
+        "COMMCTRL",
+        "M1MHd",
+        "module",
+        18
+    ],
+    "cregs": [
+        "cregs",
+        "MpEUz",
+        "module",
+        19
+    ],
+    "pregs": [
+        "pregs",
+        "pHq3c",
+        "module",
+        20
+    ],
+    "AHB_DEFAULT": [
+        "AHB_DEFAULT",
+        "kfdHG",
+        "module",
+        21
+    ],
+    "ahb_sub": [
+        "ahb_sub",
+        "TcDnT",
+        "module",
+        22
+    ],
+    "ahb_sub_0000": [
+        "ahb_sub_0000",
+        "IP558",
+        "module",
+        23
+    ],
+    "MX_CLK_DIVIDER": [
+        "MX_CLK_DIVIDER",
+        "IVbje",
+        "module",
+        24
+    ],
+    "backend": [
+        "backend",
+        "WmIsv",
+        "module",
+        25
+    ],
+    "frontmux": [
+        "frontmux",
+        "AMwTM",
+        "module",
+        26
+    ],
+    "cmsdk_apb_uart": [
+        "cmsdk_apb_uart",
+        "urLn7",
+        "module",
+        27
+    ],
+    "cmsdk_apb_timer": [
+        "cmsdk_apb_timer",
+        "pAIvE",
+        "module",
+        28
+    ],
+    "scancell": [
+        "scancell",
+        "Kmjc8",
+        "module",
+        29
+    ],
+    "cmsdk_apb_dualtimers_frc": [
+        "cmsdk_apb_dualtimers_frc",
+        "k1WTD",
+        "module",
+        30
+    ],
+    "...MASTER...": [
+        "SIM",
+        "amcQw",
+        "module",
+        31
+    ]
+}

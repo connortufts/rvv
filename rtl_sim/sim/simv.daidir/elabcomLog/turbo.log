@@ -1,0 +1,3 @@
+Command Line: /usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/linux64/bin/elabcom -logdir simv.daidir/elabcomLog -simvdaidir simv.daidir -lib simv.daidir/work -saveLevel -elab simv.daidir/kdb -simflow -simdir simv.daidir/kdb_libs -topfile simv.daidir/.elabcomTopFile -pkgfile simv.daidir/.elabcomPkgFile -ssv -ssy -Lf work +disable_message+C00380+C00381 +disable_message+C00388+C00389
+uname(Linux vm-hw03 4.18.0-553.89.1.el8_10.x86_64 #1 SMP Sat Nov 29 00:49:18 EST 2025 x86_64)
+au time 0.216166 0.057630 0.036823 delta 95232000 95232000 total 285843456 285843456

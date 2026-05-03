@@ -1,0 +1,356 @@
+67       
+0 rtl_macros.svh
+0 /usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/etc/systemverilog/rtl_macros.svh
+0 ../../top/rtl_macros.svh
+0 ../../cm0_sys/rtl_macros.svh
+0 ff.svh
+0 /usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/etc/systemverilog/ff.svh
+0 ../../top/ff.svh
+0 ../../cm0_sys/ff.svh
+0 sva.svh
+0 /usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/etc/systemverilog/sva.svh
+0 ../../top/sva.svh
+0 ../../cm0_sys/sva.svh
+0 log.svh
+0 /usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/etc/systemverilog/log.svh
+0 ../../top/log.svh
+0 ../../cm0_sys/log.svh
+0 fxp.svh
+0 /usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/etc/systemverilog/fxp.svh
+0 ../../top/fxp.svh
+0 ../../cm0_sys/fxp.svh
+0 case.svh
+0 /usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/etc/systemverilog/case.svh
+0 ../../top/case.svh
+0 ../../cm0_sys/case.svh
+0 RTL.svh
+0 /usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/etc/systemverilog/RTL.svh
+0 ../../top/RTL.svh
+0 ../../cm0_sys/RTL.svh
+0 ../CHIPKIT/ip/rtl_inc/ff.svh
+0 /usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/etc/systemverilog/../CHIPKIT/ip/rtl_inc/ff.svh
+0 ../CHIPKIT/ip/rtl_inc/case.svh
+0 /usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/etc/systemverilog/../CHIPKIT/ip/rtl_inc/case.svh
+0 cmsdk_apb_dualtimers_defs.v
+0 /usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/etc/systemverilog/cmsdk_apb_dualtimers_defs.v
+0 ../../top/cmsdk_apb_dualtimers_defs.v
+0 ../../cm0_sys/cmsdk_apb_dualtimers_defs.v
+0 ../../CHIPKIT/ip/rtl_inc/cmsdk_apb_dualtimers_defs.v
+0 ../../CHIPKIT/ip/ahb/cmsdk_apb_dualtimers_defs.v
+0 ../../apb_sys/cmsdk_apb_dualtimers_defs.v
+0 ../../CHIPKIT/ip/commctrl/cmsdk_apb_dualtimers_defs.v
+0 ../../crg/cmsdk_apb_dualtimers_defs.v
+0 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_ahb_gpio/verilog/cmsdk_apb_dualtimers_defs.v
+0 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_iop_gpio/verilog/cmsdk_apb_dualtimers_defs.v
+0 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_uart/verilog/cmsdk_apb_dualtimers_defs.v
+0 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_timer/verilog/cmsdk_apb_dualtimers_defs.v
+0 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_ahb_default_slave/verilog/cmsdk_apb_dualtimers_defs.v
+0 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_subsystem/verilog/cmsdk_apb_dualtimers_defs.v
+0 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_ahb_to_apb/verilog/cmsdk_apb_dualtimers_defs.v
+0 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_slave_mux/verilog/cmsdk_apb_dualtimers_defs.v
+0 cmsdk_apb_watchdog_defs.v
+0 /usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/etc/systemverilog/cmsdk_apb_watchdog_defs.v
+0 ../../top/cmsdk_apb_watchdog_defs.v
+0 ../../cm0_sys/cmsdk_apb_watchdog_defs.v
+0 ../../CHIPKIT/ip/rtl_inc/cmsdk_apb_watchdog_defs.v
+0 ../../CHIPKIT/ip/ahb/cmsdk_apb_watchdog_defs.v
+0 ../../apb_sys/cmsdk_apb_watchdog_defs.v
+0 ../../CHIPKIT/ip/commctrl/cmsdk_apb_watchdog_defs.v
+0 ../../crg/cmsdk_apb_watchdog_defs.v
+0 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_ahb_gpio/verilog/cmsdk_apb_watchdog_defs.v
+0 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_iop_gpio/verilog/cmsdk_apb_watchdog_defs.v
+0 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_uart/verilog/cmsdk_apb_watchdog_defs.v
+0 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_timer/verilog/cmsdk_apb_watchdog_defs.v
+0 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_ahb_default_slave/verilog/cmsdk_apb_watchdog_defs.v
+0 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_subsystem/verilog/cmsdk_apb_watchdog_defs.v
+0 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_ahb_to_apb/verilog/cmsdk_apb_watchdog_defs.v
+0 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_slave_mux/verilog/cmsdk_apb_watchdog_defs.v
+0 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_dualtimers/verilog/cmsdk_apb_watchdog_defs.v
+41
++itf+/usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/linux64/lib/vcsdp_lite.tab
++lint=all,noVCDE
++notimingchecks
++vcs+loopreport+1000
++vcsd1
++vpi
+-Mamsrun=
+-Masflags=
+-Mcc=gcc
+-Mcfl= -pipe -fPIC -O -I/usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/include
+-Mcplusplus=g++
+-Mcrt0=
+-Mcrtn=
+-Mcsrc=
+-Mexternalobj=
+-Mldflags= -rdynamic
+-Mobjects= /usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/linux64/lib/libvirsim.so /usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/linux64/lib/liberrorinf.so /usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/linux64/lib/libsnpsmalloc.so /usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/linux64/lib/libvfs.so /usr/cots/synopsys/verdi/T-2022.06-1/share/PLI/VCS/LINUX64/pli.a
+-Mout=simv
+-Msaverestoreobj=/usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/linux64/lib/vcs_save_restore_new.o
+-Msyslibs=/usr/cots/synopsys/verdi/T-2022.06-1/share/PLI/VCS/LINUX64/pli.a -ldl -lm
+-Mvcsaceobjs=
+-Mxcflags= -pipe -fPIC -I/usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/include
+-Mxllcflags=
+-P
+-P
+-Xufe=2steps
+-debug_access+all
+-f ../tbench_M0.vc
+-fsdb
+-full64
+-gen_obj
+-kdb
+-lca
+-picarchive
+-sverilog
+-timescale=1ps/1ps
+-v2k_generate
+/usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/linux64/bin/vcs1
+/usr/cots/synopsys/verdi/T-2022.06-1/share/PLI/VCS/LINUX64/novas.tab
+/usr/cots/synopsys/verdi/T-2022.06-1/share/PLI/VCS/LINUX64/verdi.tab
+../tbench_M0.vc
+71
+_LMFILES__modshare=/usr/cots/modulefiles/licenses/mentor-graphics:1:/usr/cots/modulefiles/licenses/cadence:1:/usr/cots/modulefiles/licenses/synopsys:1:/usr/cots/modulefiles/tools/vcs/T-2022.06-SP2-9:1:/usr/cots/modulefiles/tools/verdi/T-2022.06-1:1
+_LMFILES_=/usr/cots/modulefiles/licenses/synopsys:/usr/cots/modulefiles/licenses/mentor-graphics:/usr/cots/modulefiles/licenses/cadence:/usr/cots/modulefiles/tools/verdi/T-2022.06-1:/usr/cots/modulefiles/tools/vcs/T-2022.06-SP2-9
+XDG_SESSION_ID=504
+XDG_RUNTIME_DIR=/run/user/47176
+VMR_MODE_FLAG=64
+VERDI_HOME=/usr/cots/synopsys/verdi/T-2022.06-1
+VENDOR=unknown
+VCS_PYTHON2=/usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/Linux/bin/Python-2.7.15/bin/python
+VCS_PATHMAP_PRELOAD_DONE=1
+VCS_MX_HOME_INTERNAL=1
+VCS_MODE_FLAG=64
+VCS_LCAMSG_PRINT_OFF=1
+VCS_HOME=/usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9
+VCS_EXEC_DONE=1
+VCS_DEPTH=0
+VCS_ARG_ADDED_FOR_TMP=1
+VCS_ARCH=linux64
+UNAME=/bin/uname
+TOOL_HOME=/usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/linux64
+SSH_TTY=/dev/pts/2
+SSH_CONNECTION=10.243.56.144 54092 130.64.23.183 22
+SSH_CLIENT=10.243.56.144 54092 22
+SSH_ASKPASS=/usr/libexec/openssh/gnome-ssh-askpass
+SNPS_VERDI_INTERNAL_LP_XML_NEW_FLOW=1
+SNPS_VCS_DIAG_INTERNAL_OPTS=-diag timescale 
+SNPS_VCS_CLANG_PATH=/usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/linux64/clang
+SNPS_INTERNAL_VCS_LINUX_OS=linux
+SELINUX_USE_CURRENT_RANGE=
+SELINUX_ROLE_REQUESTED=
+SELINUX_LEVEL_REQUESTED=
+SCRNAME=vcs
+SCRIPT_NAME=vcs
+REMOTEHOST=10.243.56.144
+PKG_CONFIG_PATH=/usr/sup/lib64/pkgconfig:/usr/sup/lib/pkgconfig
+PATH_modshare=/usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/bin:1:/usr/bin:1:/usr/cots/synopsys/verdi/T-2022.06-1/bin:1:/usr/share/Modules/bin:1:/comp/15/bin:1:/usr/lib64/ccache:1:/bin:1:/usr/sup/bin:1:/opt/puppetlabs/bin:1:/usr/cots/bin:1:/usr/sup/sbin:1:/usr/sbin:1
+OVA_UUM=0
+OSTYPE=linux
+MORE=/bin/more
+MODULES_USE_COMPAT_VERSION=0
+MODULES_RUN_QUARANTINE=LD_LIBRARY_PATH LD_PRELOAD
+MODULES_LMPREREQ_modshare=tools/vcs/T-2022.06-SP2-9&licenses/synopsys:1:tools/verdi/T-2022.06-1&licenses/synopsys:1
+MODULES_LMPREREQ=tools/verdi/T-2022.06-1&licenses/synopsys:tools/vcs/T-2022.06-SP2-9&licenses/synopsys
+MODULES_CMD=/usr/share/Modules/libexec/modulecmd.tcl
+MODULESHOME=/usr/share/Modules
+MODULEPATH_modshare=/etc/scl/modulefiles:1:/usr/cots/modulefiles:1:/usr/share/Modules/modulefiles:2:/etc/modulefiles:2:/usr/share/modulefiles:2
+MODULEPATH=/usr/cots/modulefiles:/etc/scl/modulefiles:/usr/share/Modules/modulefiles:/etc/modulefiles:/usr/share/modulefiles
+MGLS_LICENSE_FILE=1717@vm-license1
+MFLAGS=
+MAKE_TERMOUT=/dev/pts/2
+MAKE_TERMERR=/dev/pts/2
+MAKELEVEL=1
+MAKEFLAGS=
+LOADEDMODULES_modshare=licenses/mentor-graphics:1:licenses/cadence:1:licenses/synopsys:1:tools/vcs/T-2022.06-SP2-9:1:tools/verdi/T-2022.06-1:1
+LOADEDMODULES=licenses/synopsys:licenses/mentor-graphics:licenses/cadence:tools/verdi/T-2022.06-1:tools/vcs/T-2022.06-SP2-9
+LESSOPEN=||/usr/bin/lesspipe.sh %s
+LD_LIBRARY_PATH_modshare=/usr/sup/lib64:1:/usr/sup/lib:1:/usr/cots/synopsys/verdi/T-2022.06-1/share/PLI/VCS/LINUX64:1
+LC_ALL=C
+KDEDIRS=/usr
+KACE_SERVER=vm-kace01.eecs.tufts.edu
+HOSTTYPE=x86_64-linux
+GROUP=games
+GDK_BACKEND=x11
+DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-nCsEDKuofD,guid=3f64f2d8abeb457fdfce1d6f69f76cd4
+CONDA_SHLVL=0
+CDS_LIC_FILE=5280@vm-license1
+BASH_FUNC_switchml%%=() {  swfound=1;_ if [ "${MODULES_USE_COMPAT_VERSION:-0}" = '1' ]; then_ swname='main';_ if [ -e /usr/share/Modules/libexec/modulecmd.tcl ]; then_ swfound=0;_ unset MODULES_USE_COMPAT_VERSION;_ fi;_ else_ swname='compatibility';_ if [ -e /usr/share/Modules/libexec/modulecmd-compat ]; then_ swfound=0;_ MODULES_USE_COMPAT_VERSION=1;_ export MODULES_USE_COMPAT_VERSION;_ fi;_ fi;_ if [ $swfound -eq 0 ]; then_ echo "Switching to Modules $swname version";_ . /usr/share/Modules/init/sh;_ else_ echo "Cannot switch to Modules $swname version, command not found";_ return 1;_ fi_}
+BASH_FUNC_module%%=() {  _module_raw "$@" 2>&1_}
+BASH_FUNC_ml%%=() {  module ml "$@"_}
+BASH_FUNC__module_raw%%=() {  unset _mlshdbg;_ if [ "${MODULES_SILENT_SHELL_DEBUG:-0}" = '1' ]; then_ case "$-" in _ *v*x*)_ set +vx;_ _mlshdbg='vx'_ ;;_ *v*)_ set +v;_ _mlshdbg='v'_ ;;_ *x*)_ set +x;_ _mlshdbg='x'_ ;;_ *)_ _mlshdbg=''_ ;;_ esac;_ fi;_ unset _mlre _mlIFS;_ if [ -n "${IFS+x}" ]; then_ _mlIFS=$IFS;_ fi;_ IFS=' ';_ for _mlv in ${MODULES_RUN_QUARANTINE:-};_ do_ if [ "${_mlv}" = "${_mlv##*[!A-Za-z0-9_]}" -a "${_mlv}" = "${_mlv#[0-9]}" ]; then_ if [ -n "`eval 'echo ${'$_mlv'+x}'`" ]; then_ _mlre="${_mlre:-}${_mlv}_modquar='`eval 'echo ${'$_mlv'}'`' ";_ fi;_ _mlrv="MODULES_RUNENV_${_mlv}";_ _mlre="${_mlre:-}${_mlv}='`eval 'echo ${'$_mlrv':-}'`' ";_ fi;_ done;_ if [ -n "${_mlre:-}" ]; then_ eval `eval ${_mlre} /usr/bin/tclsh /usr/share/Modules/libexec/modulecmd.tcl sh '"$@"'`;_ else_ eval `/usr/bin/tclsh /usr/share/Modules/libexec/modulecmd.tcl sh "$@"`;_ fi;_ _mlstatus=$?;_ if [ -n "${_mlIFS+x}" ]; then_ IFS=$_mlIFS;_ else_ unset IFS;_ fi;_ unset _mlre _mlv _mlrv _mlIFS;_ if [ -n "${_mlshdbg:-}" ]; then_ set -$_mlshdbg;_ fi;_ unset _mlshdbg;_ return $_mlstatus_}
+BABEL_LIBDIR=/usr/lib64/openbabel3
+BABEL_DATADIR=/usr/share/openbabel
+0
+19
+284445000 ../../accel/
+862744000 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/systems/cortex_m0_mcu/verilog
+727262000 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/cores/cortexm0_designstart_r2p0/logical/cortexm0_integration/verilog
+0 ../../CHIPKIT/ip/commctrl
+0 ../../models/generic
+0 ../../apb_sys
+7439000 ../../CHIPKIT/ip/ahb
+218689000 ../../cm0_sys
+0 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_watchdog/verilog
+0 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_dualtimers/verilog
+0 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_slave_mux/verilog
+0 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_ahb_to_apb/verilog
+135062000 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_subsystem/verilog
+0 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_ahb_default_slave/verilog
+0 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_timer/verilog
+0 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_uart/verilog
+0 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_iop_gpio/verilog
+0 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_ahb_gpio/verilog
+0 ../../crg
+144
+1506940713 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_watchdog/verilog/cmsdk_apb_watchdog_frc.v
+1506940719 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_dualtimers/verilog/cmsdk_apb_dualtimers_frc.v
+1776363862 ../../CHIPKIT/ip/commctrl/uart.sv
+0 ../../CHIPKIT/ip/commctrl/uart.v.e
+0 ../../CHIPKIT/ip/commctrl/uart.v
+1776363862 ../../CHIPKIT/ip/commctrl/baudmux.sv
+0 ../../CHIPKIT/ip/commctrl/baudmux.v.e
+0 ../../CHIPKIT/ip/commctrl/baudmux.v
+1776363862 ../../models/generic/syncff.sv
+0 ../../models/generic/syncff.v.e
+0 ../../models/generic/syncff.v
+1776363862 ../../models/generic/scancell.sv
+0 ../../models/generic/scancell.v.e
+0 ../../models/generic/scancell.v
+1776363862 ../../models/generic/array.sv
+0 ../../models/generic/array.v.e
+0 ../../models/generic/array.v
+1506940713 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_watchdog/verilog/cmsdk_apb_watchdog_defs.v
+1506940713 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_watchdog/verilog/cmsdk_apb_watchdog.v
+1506940719 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_dualtimers/verilog/cmsdk_apb_dualtimers_defs.v
+1506940719 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_dualtimers/verilog/cmsdk_apb_dualtimers.v
+1506940718 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_slave_mux/verilog/cmsdk_apb_slave_mux.v
+1506940713 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_ahb_to_apb/verilog/cmsdk_ahb_to_apb.v
+1506940713 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_subsystem/verilog/cmsdk_irq_sync.v
+1506940713 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_subsystem/verilog/cmsdk_apb_test_slave.v
+1506940714 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_ahb_default_slave/verilog/cmsdk_ahb_default_slave.v
+1506940711 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_timer/verilog/cmsdk_apb_timer.v
+1506940716 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_uart/verilog/cmsdk_apb_uart.v
+1506940711 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_iop_gpio/verilog/cmsdk_iop_gpio.v
+1506940717 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_ahb_gpio/verilog/cmsdk_ahb_to_iop.v
+1776363862 ../../CHIPKIT/ip/commctrl/uartfront.sv
+0 ../../CHIPKIT/ip/commctrl/uartfront.v.e
+0 ../../CHIPKIT/ip/commctrl/uartfront.v
+1776363862 ../../CHIPKIT/ip/commctrl/scanfront.sv
+0 ../../CHIPKIT/ip/commctrl/scanfront.v.e
+0 ../../CHIPKIT/ip/commctrl/scanfront.v
+1776363862 ../../CHIPKIT/ip/commctrl/frontmux.sv
+0 ../../CHIPKIT/ip/commctrl/frontmux.v.e
+0 ../../CHIPKIT/ip/commctrl/frontmux.v
+1776363862 ../../CHIPKIT/ip/commctrl/decoder.sv
+0 ../../CHIPKIT/ip/commctrl/decoder.v.e
+0 ../../CHIPKIT/ip/commctrl/decoder.v
+1776363862 ../../CHIPKIT/ip/commctrl/backend.sv
+0 ../../CHIPKIT/ip/commctrl/backend.v.e
+0 ../../CHIPKIT/ip/commctrl/backend.v
+1776363862 ../../models/generic/syncff_set.sv
+0 ../../models/generic/syncff_set.v.e
+0 ../../models/generic/syncff_set.v
+1776363862 ../../top/../CHIPKIT/ip/rtl_inc/case.svh
+1776363862 ../../models/generic/MX_CLK_DIVIDER.sv
+0 ../../models/generic/MX_CLK_DIVIDER.v.e
+0 ../../models/generic/MX_CLK_DIVIDER.v
+1776363862 ../../models/generic/LIB_SRAM_16384x32.sv
+0 ../../models/generic/LIB_SRAM_16384x32.v.e
+0 ../../models/generic/LIB_SRAM_16384x32.v
+1776363862 ../../CHIPKIT/ip/ahb/ahb_sub.sv
+0 ../../CHIPKIT/ip/ahb/ahb_sub.v.e
+0 ../../CHIPKIT/ip/ahb/ahb_sub.v
+1776363862 ../../CHIPKIT/ip/ahb/AHB_DEFAULT.sv
+0 ../../CHIPKIT/ip/ahb/AHB_DEFAULT.v.e
+0 ../../CHIPKIT/ip/ahb/AHB_DEFAULT.v
+1776363862 ../../cm0_sys/sm2_sysctrl.v
+1777826992 ../../cm0_sys/pregs.sv
+0 ../../cm0_sys/pregs.v.e
+0 ../../cm0_sys/pregs.v
+1777822599 ../../cm0_sys/XRegisterFile.sv
+0 ../../cm0_sys/XRegisterFile.v.e
+0 ../../cm0_sys/XRegisterFile.v
+1777822583 ../../cm0_sys/XALU.sv
+0 ../../cm0_sys/XALU.v.e
+0 ../../cm0_sys/XALU.v
+1777822564 ../../cm0_sys/ProgramCounter.sv
+0 ../../cm0_sys/ProgramCounter.v.e
+0 ../../cm0_sys/ProgramCounter.v
+1777826358 ../../cm0_sys/MemoryModule.sv
+0 ../../cm0_sys/MemoryModule.v.e
+0 ../../cm0_sys/MemoryModule.v
+1777822534 ../../cm0_sys/LSU.sv
+0 ../../cm0_sys/LSU.v.e
+0 ../../cm0_sys/LSU.v
+1777826141 ../../cm0_sys/InstructionMemory.sv
+0 ../../cm0_sys/InstructionMemory.v.e
+0 ../../cm0_sys/InstructionMemory.v
+1777822520 ../../cm0_sys/InstructionDecoder.sv
+0 ../../cm0_sys/InstructionDecoder.v.e
+0 ../../cm0_sys/InstructionDecoder.v
+1777822499 ../../cm0_sys/ImmediateGenerator.sv
+0 ../../cm0_sys/ImmediateGenerator.v.e
+0 ../../cm0_sys/ImmediateGenerator.v
+1506940713 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_subsystem/verilog/cmsdk_apb_subsystem.v
+1506940717 /usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_ahb_gpio/verilog/cmsdk_ahb_gpio.v
+1776363862 ../../crg/cregs/output/cregs.sv
+0 ../../crg/cregs/output/cregs.v.e
+0 ../../crg/cregs/output/cregs.v
+1776363862 ../../CHIPKIT/ip/commctrl/COMMCTRL.sv
+0 ../../CHIPKIT/ip/commctrl/COMMCTRL.v.e
+0 ../../CHIPKIT/ip/commctrl/COMMCTRL.v
+1776363862 ../../apb_sys/APB_SYS.sv
+0 ../../apb_sys/APB_SYS.v.e
+0 ../../apb_sys/APB_SYS.v
+1776363862 ../../top/../CHIPKIT/ip/rtl_inc/ff.svh
+1776363862 ../../CHIPKIT/ip/ahb/AHB_MGR_MUX.sv
+0 ../../CHIPKIT/ip/ahb/AHB_MGR_MUX.v.e
+0 ../../CHIPKIT/ip/ahb/AHB_MGR_MUX.v
+1776363862 ../../CHIPKIT/ip/ahb/AHB_MEM.sv
+0 ../../CHIPKIT/ip/ahb/AHB_MEM.v.e
+0 ../../CHIPKIT/ip/ahb/AHB_MEM.v
+1776363862 ../../CHIPKIT/ip/rtl_inc/RTL.svh
+1776363862 ../../CHIPKIT/ip/ahb/AHB_BUS.sv
+0 ../../CHIPKIT/ip/ahb/AHB_BUS.v.e
+0 ../../CHIPKIT/ip/ahb/AHB_BUS.v
+1777502209 ../../cm0_sys/RiscvCore.sv
+0 ../../cm0_sys/RiscvCore.v.e
+0 ../../cm0_sys/RiscvCore.v
+1776363862 ../../cm0_sys/AHB_SYSCTL.sv
+0 ../../cm0_sys/AHB_SYSCTL.v.e
+0 ../../cm0_sys/AHB_SYSCTL.v
+1776363862 ../../cm0_sys/AHB_GPIO.sv
+0 ../../cm0_sys/AHB_GPIO.v.e
+0 ../../cm0_sys/AHB_GPIO.v
+1777827380 ../../cm0_sys/ACCEL.sv
+0 ../../cm0_sys/ACCEL.v.e
+0 ../../cm0_sys/ACCEL.v
+1776363862 ../../crg/CRG.sv
+0 ../../crg/CRG.v.e
+0 ../../crg/CRG.v
+1776363862 ../../CHIPKIT/ip/rtl_inc/case.svh
+1776363862 ../../CHIPKIT/ip/rtl_inc/fxp.svh
+1776363862 ../../CHIPKIT/ip/rtl_inc/log.svh
+1776363862 ../../CHIPKIT/ip/rtl_inc/sva.svh
+1776363862 ../../CHIPKIT/ip/rtl_inc/ff.svh
+1776363862 ../../CHIPKIT/ip/rtl_inc/rtl_macros.svh
+1776363862 ../../CHIPKIT/ip/commctrl/comm_defs_pkg.sv
+1776363862 ../../min/min_intf.sv
+1776363862 ../../CHIPKIT/ip/ahb/ahb_intf.sv
+1777821332 ../../cm0_sys/rvDefs.sv
+1777831576 ../../cm0_sys/RiscvCore_SYS.sv
+1776363862 ../../cm0_sys/cm0_memmap_pkg.sv
+1777828581 ../../top/TOP.sv
+1777831596 ../../top/tb_TOP.sv
+1777821731 ../tbench_M0.vc
+1657792030 /usr/cots/synopsys/verdi/T-2022.06-1/share/PLI/VCS/LINUX64/verdi.tab
+1657792030 /usr/cots/synopsys/verdi/T-2022.06-1/share/PLI/VCS/LINUX64/novas.tab
+1706328375 /usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/linux64/lib/vcsdp_lite.tab
+5
+1706329987 /usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/linux64/lib/libvirsim.so
+1706329186 /usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/linux64/lib/liberrorinf.so
+1706329117 /usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/linux64/lib/libsnpsmalloc.so
+1706329181 /usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/linux64/lib/libvfs.so
+1657790967 /usr/cots/synopsys/verdi/T-2022.06-1/share/PLI/VCS/LINUX64/pli.a
+1777831604 simv.daidir
+-1 partitionlib

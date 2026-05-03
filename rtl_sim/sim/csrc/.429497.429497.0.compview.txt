@@ -1,0 +1,7 @@
+Command exited with non-zero status 255
+{"vcs1":{"timestamp_begin":1777831456.033435187, "rt":0.68, "ut":0.37, "st":0.18}}
+{"SNPS_VCS_INTERNAL_ROOT_START_TIME": 1777831455.190484570}
+{"VCS_COMP_START_TIME": 1777831455.190484570}
+{"VCS_COMP_END_TIME": 1777831456.829632125}
+{"VCS_USER_OPTIONS": "-sverilog -v2k_generate +vcs+loopreport+1000 -debug_access+all -timescale=1ps/1ps +lint=all,noVCDE -full64 -diag timescale +notimingchecks -kdb -lca -P /usr/cots/synopsys/verdi/T-2022.06-1/share/PLI/VCS/LINUX64/novas.tab /usr/cots/synopsys/verdi/T-2022.06-1/share/PLI/VCS/LINUX64/pli.a -f ../tbench_M0.vc"}
+{"vcs1": {"peak_mem": 537520}}

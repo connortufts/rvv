@@ -1,0 +1,778 @@
+                         Chronologic VCS (TM)
+      Version T-2022.06-SP2-9_Full64 -- Sun May  3 14:06:41 2026
+
+                    Copyright (c) 1991 - 2024 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+   or distribution of this software is strictly prohibited.  Licensed Products
+     communicate with Synopsys servers for the purpose of providing software
+    updates, detecting software piracy and verifying that customers are using
+    Licensed Products in conformity with the applicable License Key for such
+  Licensed Products. Synopsys will use information gathered in connection with
+    this process to deliver software updates and pursue software pirates and
+                                   infringers.
+
+ Inclusivity & Diversity - Visit SolvNetPlus to read the "Synopsys Statement on
+            Inclusivity and Diversity" (Refer to article 000036315 at
+                        https://solvnetplus.synopsys.com)
+
+
+Warning-[LCA_FEATURES_ENABLED] Usage warning
+  LCA features enabled by '-lca' argument on the command line.  For more 
+  information regarding list of LCA features please refer to Chapter "LCA 
+  features" in the VCS Release Notes
+
+
+Warning-[OBSV2G] Use of the -v2k_generate switch
+  This switch will be obsolete in future VCS releases.
+  To disable this warning message please add "+warn=noOBSV2G" on command line.
+
+Parsing design file '../../top/tb_TOP.sv'
+
+Lint-[NS] Null statement
+../../top/tb_TOP.sv, 306
+  Null statement is used in following verilog source.
+  Source info:         repeat(10) @(posedge HCLK);
+
+
+Lint-[NS] Null statement
+../../top/tb_TOP.sv, 307
+  Null statement is used in following verilog source.
+  Source info:         @(negedge HCLK);
+
+
+Lint-[NS] Null statement
+../../top/tb_TOP.sv, 309
+  Null statement is used in following verilog source.
+  Source info:         repeat(5) @(posedge HCLK);
+
+
+Lint-[NS] Null statement
+../../top/tb_TOP.sv, 317
+  Null statement is used in following verilog source.
+  Source info:                 @(posedge HCLK);
+
+
+Lint-[NS] Null statement
+../../top/tb_TOP.sv, 344
+  Null statement is used in following verilog source.
+  Source info:         @(posedge HCLK);
+
+
+Lint-[NS] Null statement
+../../top/tb_TOP.sv, 363
+  Null statement is used in following verilog source.
+  Source info:             @(posedge HCLK);
+
+
+Lint-[NS] Null statement
+../../top/tb_TOP.sv, 367
+  Null statement is used in following verilog source.
+  Source info:             @(negedge HCLK);
+
+
+Lint-[NS] Null statement
+../../top/tb_TOP.sv, 426
+  Null statement is used in following verilog source.
+  Source info:         #100000;
+
+Parsing design file '../../top/TOP.sv'
+Parsing included file '../../CHIPKIT/ip/rtl_inc/rtl_macros.svh'.
+Parsing included file '../../CHIPKIT/ip/rtl_inc/ff.svh'.
+Back to file '../../CHIPKIT/ip/rtl_inc/rtl_macros.svh'.
+Parsing included file '../../CHIPKIT/ip/rtl_inc/sva.svh'.
+Back to file '../../CHIPKIT/ip/rtl_inc/rtl_macros.svh'.
+Parsing included file '../../CHIPKIT/ip/rtl_inc/log.svh'.
+Back to file '../../CHIPKIT/ip/rtl_inc/rtl_macros.svh'.
+Parsing included file '../../CHIPKIT/ip/rtl_inc/fxp.svh'.
+Back to file '../../CHIPKIT/ip/rtl_inc/rtl_macros.svh'.
+Parsing included file '../../CHIPKIT/ip/rtl_inc/case.svh'.
+Back to file '../../CHIPKIT/ip/rtl_inc/rtl_macros.svh'.
+Back to file '../../top/TOP.sv'.
+Parsing design file '../../cm0_sys/cm0_memmap_pkg.sv'
+Parsing design file '../../cm0_sys/RiscvCore_SYS.sv'
+Parsing design file '../../cm0_sys/rvDefs.sv'
+Parsing design file '../../CHIPKIT/ip/ahb/ahb_intf.sv'
+Parsing design file '../../min/min_intf.sv'
+Parsing design file '../../CHIPKIT/ip/commctrl/comm_defs_pkg.sv'
+Parsing library directory file '../../crg/CRG.sv'
+Parsing library directory file '../../cm0_sys/ACCEL.sv'
+Parsing library directory file '../../cm0_sys/AHB_GPIO.sv'
+Parsing library directory file '../../cm0_sys/AHB_SYSCTL.sv'
+Parsing library directory file '../../cm0_sys/RiscvCore.sv'
+Parsing library directory file '../../CHIPKIT/ip/ahb/AHB_BUS.sv'
+Parsing included file '../../CHIPKIT/ip/rtl_inc/RTL.svh'.
+Back to file '../../CHIPKIT/ip/ahb/AHB_BUS.sv'.
+Parsing library directory file '../../CHIPKIT/ip/ahb/AHB_MEM.sv'
+Parsing included file '../../CHIPKIT/ip/rtl_inc/RTL.svh'.
+Back to file '../../CHIPKIT/ip/ahb/AHB_MEM.sv'.
+Parsing library directory file '../../CHIPKIT/ip/ahb/AHB_MGR_MUX.sv'
+Parsing included file '../../top/../CHIPKIT/ip/rtl_inc/ff.svh'.
+Back to file '../../CHIPKIT/ip/ahb/AHB_MGR_MUX.sv'.
+Parsing library directory file '../../apb_sys/APB_SYS.sv'
+Parsing library directory file '../../CHIPKIT/ip/commctrl/COMMCTRL.sv'
+Parsing library directory file '../../crg/cregs/output/cregs.sv'
+
+Warning-[TMBIN] Too many bits in Based Number
+../../crg/cregs/output/cregs.sv, 119
+  The specified width is '2' bits, actually got '32' bits.
+  The offending number is : '00000001'.
+
+
+Warning-[TMBIN] Too many bits in Based Number
+../../crg/cregs/output/cregs.sv, 130
+  The specified width is '2' bits, actually got '32' bits.
+  The offending number is : '00000001'.
+
+Parsing library directory file '/usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_ahb_gpio/verilog/cmsdk_ahb_gpio.v'
+Parsing library directory file '/usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_subsystem/verilog/cmsdk_apb_subsystem.v'
+Parsing library directory file '../../cm0_sys/ImmediateGenerator.sv'
+Parsing library directory file '../../cm0_sys/InstructionDecoder.sv'
+Parsing library directory file '../../cm0_sys/InstructionMemory.sv'
+Parsing library directory file '../../cm0_sys/LSU.sv'
+Parsing library directory file '../../cm0_sys/MemoryModule.sv'
+Parsing library directory file '../../cm0_sys/ProgramCounter.sv'
+Parsing library directory file '../../cm0_sys/XALU.sv'
+Parsing library directory file '../../cm0_sys/XRegisterFile.sv'
+Parsing library directory file '../../cm0_sys/pregs.sv'
+Parsing library directory file '../../cm0_sys/sm2_sysctrl.v'
+Parsing library directory file '../../CHIPKIT/ip/ahb/AHB_DEFAULT.sv'
+Parsing library directory file '../../CHIPKIT/ip/ahb/ahb_sub.sv'
+Parsing library directory file '../../models/generic/LIB_SRAM_16384x32.sv'
+Parsing library directory file '../../models/generic/MX_CLK_DIVIDER.sv'
+Parsing included file '../../top/../CHIPKIT/ip/rtl_inc/case.svh'.
+Back to file '../../models/generic/MX_CLK_DIVIDER.sv'.
+Parsing library directory file '../../models/generic/syncff_set.sv'
+Parsing library directory file '../../CHIPKIT/ip/commctrl/backend.sv'
+Parsing library directory file '../../CHIPKIT/ip/commctrl/decoder.sv'
+Parsing library directory file '../../CHIPKIT/ip/commctrl/frontmux.sv'
+Parsing library directory file '../../CHIPKIT/ip/commctrl/scanfront.sv'
+Parsing library directory file '../../CHIPKIT/ip/commctrl/uartfront.sv'
+Parsing library directory file '/usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_ahb_gpio/verilog/cmsdk_ahb_to_iop.v'
+Parsing library directory file '/usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_iop_gpio/verilog/cmsdk_iop_gpio.v'
+Parsing library directory file '/usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_uart/verilog/cmsdk_apb_uart.v'
+Parsing library directory file '/usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_timer/verilog/cmsdk_apb_timer.v'
+Parsing library directory file '/usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_ahb_default_slave/verilog/cmsdk_ahb_default_slave.v'
+Parsing library directory file '/usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_subsystem/verilog/cmsdk_apb_test_slave.v'
+Parsing library directory file '/usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_subsystem/verilog/cmsdk_irq_sync.v'
+Parsing library directory file '/usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_ahb_to_apb/verilog/cmsdk_ahb_to_apb.v'
+Parsing library directory file '/usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_slave_mux/verilog/cmsdk_apb_slave_mux.v'
+Parsing library directory file '/usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_dualtimers/verilog/cmsdk_apb_dualtimers.v'
+Parsing included file '/usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_dualtimers/verilog/cmsdk_apb_dualtimers_defs.v'.
+Back to file '/usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_dualtimers/verilog/cmsdk_apb_dualtimers.v'.
+Parsing library directory file '/usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_watchdog/verilog/cmsdk_apb_watchdog.v'
+Parsing included file '/usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_watchdog/verilog/cmsdk_apb_watchdog_defs.v'.
+Back to file '/usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_watchdog/verilog/cmsdk_apb_watchdog.v'.
+Parsing library directory file '../../models/generic/array.sv'
+Parsing library directory file '../../models/generic/scancell.sv'
+Parsing library directory file '../../models/generic/syncff.sv'
+Parsing library directory file '../../CHIPKIT/ip/commctrl/baudmux.sv'
+Parsing library directory file '../../CHIPKIT/ip/commctrl/uart.sv'
+Parsing library directory file '/usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_dualtimers/verilog/cmsdk_apb_dualtimers_frc.v'
+Parsing included file '/usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_dualtimers/verilog/cmsdk_apb_dualtimers_defs.v'.
+Back to file '/usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_dualtimers/verilog/cmsdk_apb_dualtimers_frc.v'.
+Parsing library directory file '/usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_watchdog/verilog/cmsdk_apb_watchdog_frc.v'
+Parsing included file '/usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_watchdog/verilog/cmsdk_apb_watchdog_defs.v'.
+Back to file '/usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_watchdog/verilog/cmsdk_apb_watchdog_frc.v'.
+Top Level Modules:
+       tb_TOP
+TimeScale is 1 ns / 1 ps
+module 'tb_TOP' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'tb_TOP' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'TOP' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'TOP' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+package 'cm0_memmap_pkg' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+package 'cm0_memmap_pkg' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'RiscvCore_SYS' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'RiscvCore_SYS' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+interface 'ahb_s_intf' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+interface 'ahb_s_intf' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+package 'rvDefs' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+package 'rvDefs' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+interface 'ahb_m_intf' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+interface 'ahb_m_intf' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+interface 'reg_intf' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+interface 'reg_intf' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+package 'comm_defs_pkg' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+package 'comm_defs_pkg' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'CRG' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'CRG' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'ACCEL' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'ACCEL' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'AHB_GPIO' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'AHB_GPIO' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'AHB_SYSCTL' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'AHB_SYSCTL' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'RiscvCore' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'RiscvCore' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'AHB_BUS' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'AHB_BUS' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'AHB_MEM' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'AHB_MEM' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'AHB_MGR_MUX' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'AHB_MGR_MUX' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'APB_SYS' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'APB_SYS' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'COMMCTRL' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'COMMCTRL' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'cregs' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'cregs' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'cmsdk_ahb_gpio' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'cmsdk_ahb_gpio' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'cmsdk_apb_subsystem' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'cmsdk_apb_subsystem' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'ImmediateGenerator' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'ImmediateGenerator' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'InstructionDecoder' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'InstructionDecoder' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'InstructionMemory' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'InstructionMemory' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'LSU' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'LSU' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'MemoryModule' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'MemoryModule' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'ProgramCounter' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'ProgramCounter' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'XALU' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'XALU' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'XRegisterFile' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'XRegisterFile' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'pregs' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'pregs' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'sm2_sysctrl' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'sm2_sysctrl' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'AHB_DEFAULT' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'AHB_DEFAULT' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'ahb_sub' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'ahb_sub' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'LIB_SRAM_16384x32' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'LIB_SRAM_16384x32' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'MX_CLK_DIVIDER' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'MX_CLK_DIVIDER' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'syncff_set' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'syncff_set' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'backend' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'backend' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'decoder' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'decoder' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'frontmux' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'frontmux' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'scanfront' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'scanfront' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'uartfront' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'uartfront' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'cmsdk_ahb_to_iop' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'cmsdk_ahb_to_iop' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'cmsdk_iop_gpio' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'cmsdk_iop_gpio' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'cmsdk_apb_uart' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'cmsdk_apb_uart' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'cmsdk_apb_timer' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'cmsdk_apb_timer' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'cmsdk_ahb_default_slave' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'cmsdk_ahb_default_slave' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'cmsdk_apb_test_slave' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'cmsdk_apb_test_slave' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'cmsdk_ahb_to_apb' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'cmsdk_ahb_to_apb' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'cmsdk_apb_slave_mux' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'cmsdk_apb_slave_mux' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'cmsdk_apb_dualtimers' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'cmsdk_apb_dualtimers' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'cmsdk_apb_watchdog' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'cmsdk_apb_watchdog' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'array' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'array' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'scancell' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'scancell' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'syncff' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'syncff' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'baudmux' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'baudmux' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'uart' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'uart' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'cmsdk_apb_dualtimers_frc' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'cmsdk_apb_dualtimers_frc' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'cmsdk_apb_watchdog_frc' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'cmsdk_apb_watchdog_frc' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+interface 'ahb_s_intf_0000' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+interface 'ahb_s_intf_0000' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+interface 'ahb_m_intf_0000' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+interface 'ahb_m_intf_0000' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+interface 'ahb_m_intf_0001' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+interface 'ahb_m_intf_0001' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'AHB_MGR_MUX_0000' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'AHB_MGR_MUX_0000' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'AHB_BUS_0000' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'AHB_BUS_0000' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'cmsdk_apb_subsystem_0000' gets time unit '1 ns' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+module 'cmsdk_apb_subsystem_0000' gets time precision '1 ps' from source code '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/../../top/tb_TOP.sv', 2
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../top/tb_TOP.sv, 162
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 32-bit wide expression is assigned to a 1-bit LHS target:
+  Source info: FCLK = 0;
+  Expression: FCLK
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../top/tb_TOP.sv, 332
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 8-bit wide expression is assigned to a 32-bit LHS target:
+  Source info: tb_TOP.u_top.uACCEL.u_imem.memory[((i * 4) + 0)] = 
+  inst[i][7:0];
+  Expression: tb_TOP.u_top.uACCEL.u_imem.memory[((i * 4) + 0)]
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../top/tb_TOP.sv, 333
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 8-bit wide expression is assigned to a 32-bit LHS target:
+  Source info: tb_TOP.u_top.uACCEL.u_imem.memory[((i * 4) + 1)] = 
+  inst[i][15:8];
+  Expression: tb_TOP.u_top.uACCEL.u_imem.memory[((i * 4) + 1)]
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../top/tb_TOP.sv, 334
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 8-bit wide expression is assigned to a 32-bit LHS target:
+  Source info: tb_TOP.u_top.uACCEL.u_imem.memory[((i * 4) + 2)] = 
+  inst[i][23:16];
+  Expression: tb_TOP.u_top.uACCEL.u_imem.memory[((i * 4) + 2)]
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../top/tb_TOP.sv, 335
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 8-bit wide expression is assigned to a 32-bit LHS target:
+  Source info: tb_TOP.u_top.uACCEL.u_imem.memory[((i * 4) + 3)] = 
+  inst[i][31:24];
+  Expression: tb_TOP.u_top.uACCEL.u_imem.memory[((i * 4) + 3)]
+
+
+Lint-[UI] Unused input
+../../cm0_sys/RiscvCore_SYS.sv, 6
+  Following is an unused input.
+  Source info: FCLK
+
+
+Lint-[UI] Unused input
+../../cm0_sys/RiscvCore_SYS.sv, 8
+  Following is an unused input.
+  Source info: DCLK
+
+
+Lint-[UI] Unused input
+../../cm0_sys/RiscvCore_SYS.sv, 9
+  Following is an unused input.
+  Source info: SCLK
+
+
+Lint-[UI] Unused input
+../../cm0_sys/RiscvCore_SYS.sv, 12
+  Following is an unused input.
+  Source info: DBGRESETn
+
+
+Lint-[UI] Unused input
+../../cm0_sys/RiscvCore_SYS.sv, 18
+  Following is an unused input.
+  Source info: RXEV
+
+
+Lint-[UI] Unused input
+../../cm0_sys/RiscvCore_SYS.sv, 74
+  Following is an unused input.
+  Source info: ACCEL_IRQ
+
+
+Lint-[CAWM-L] Width mismatch
+../../cm0_sys/RiscvCore_SYS.sv, 276
+  Continuous assignment width mismatch
+  1 bits (lhs) versus 32 bits (rhs).
+  Source info: assign stall = 0;  
+
+
+Lint-[ONGS] Output never gets set
+../../cm0_sys/ACCEL.sv, 11
+"IRQ"
+  Output port 'IRQ' has never been assigned to any value.
+  
+
+
+Lint-[UI] Unused input
+../../cm0_sys/ACCEL.sv, 19
+  Following is an unused input.
+  Source info: cpu_dmem_read
+
+
+Lint-[VNGS] Variable never gets set
+../../cm0_sys/ACCEL.sv, 58
+  Following variable has never been set any value.
+  Source info: STATUS
+
+
+Lint-[VNGS] Variable never gets set
+../../cm0_sys/ACCEL.sv, 59
+  Following variable has never been set any value.
+  Source info: PC_VALUE
+
+
+Lint-[PCWM-L] Port connection width mismatch
+../../cm0_sys/ACCEL.sv, 143
+"MemoryModule u_dmem( .clk (ACCEL_CLK),  .address (dmem_addr_mux),  .writeData (dmem_wdata_mux),  .memWrite (dmem_write_mux),  .byteWriteEnable (dmem_byte_write_enable_mux),  .readData (dmem_rdata));"
+  The following 32-bit expression is connected to 16-bit port "address" of 
+  module "MemoryModule", instance "u_dmem".
+  Expression: dmem_addr_mux
+  The expression is from module ACCEL, instance uACCEL 
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../cm0_sys/RiscvCore.sv, 143
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 32-bit wide expression is assigned to a 1-bit LHS target:
+  Source info: branchPass = 0;
+  Expression: branchPass
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../cm0_sys/ProgramCounter.sv, 23
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 32-bit wide expression is assigned to a 1-bit LHS target:
+  Source info: resetFlag <= 1;
+  Expression: resetFlag
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../cm0_sys/ProgramCounter.sv, 26
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 32-bit wide expression is assigned to a 1-bit LHS target:
+  Source info: resetFlag <= 0;
+  Expression: resetFlag
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../cm0_sys/sm2_sysctrl.v, 212
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 31-bit wide expression is assigned to a 32-bit LHS target:
+  Source info: read_mux_le = {{28 {1'b0}}, reg_lockupreseten, reg_wdogreseten,
+  reg_sysreseten};
+  Expression: read_mux_le
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../cm0_sys/sm2_sysctrl.v, 384
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 3-bit wide expression is assigned to a 2-bit LHS target:
+  Source info: reg_sramwtsel <= HWDATALE[2:0];
+  Expression: reg_sramwtsel
+
+
+Lint-[UI] Unused input
+../../models/generic/LIB_SRAM_16384x32.sv, 17
+  Following is an unused input.
+  Source info: STOV
+
+
+Lint-[UI] Unused input
+../../models/generic/LIB_SRAM_16384x32.sv, 18
+  Following is an unused input.
+  Source info: EMA
+
+
+Lint-[UI] Unused input
+../../models/generic/LIB_SRAM_16384x32.sv, 19
+  Following is an unused input.
+  Source info: EMAW
+
+
+Lint-[UI] Unused input
+../../models/generic/LIB_SRAM_16384x32.sv, 20
+  Following is an unused input.
+  Source info: EMAS
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../CHIPKIT/ip/commctrl/backend.sv, 264
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 2-bit wide expression is assigned to a 3-bit LHS target:
+  Source info: hsize = (sm_ahbaddr ? 2'b10 : 2'b0);
+  Expression: hsize
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../CHIPKIT/ip/commctrl/backend.sv, 266
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 3-bit wide expression is assigned to a 2-bit LHS target:
+  Source info: htrans = (sm_ahbaddr ? 3'b010 : 3'b0);
+  Expression: htrans
+
+
+Lint-[ULCO] Unequal length in comparison operator
+../../CHIPKIT/ip/commctrl/decoder.sv, 48
+decoder, "(ibuf_cnt_dec != comm_defs_pkg::IBUF_SZ)"
+  A left 5-bit expression is compared to a right 32-bit expression.
+  Comparing 'ibuf_cnt_dec' of type logic [(comm_defs_pkg::IBUF_AW - 1):0]
+  with 'comm_defs_pkg::IBUF_SZ' of type int.
+
+
+Lint-[ULCO] Unequal length in comparison operator
+../../CHIPKIT/ip/commctrl/decoder.sv, 49
+decoder, "(ibuf_cnt_dec <= comm_defs_pkg::IBUF_SZ)"
+  A left 5-bit expression is compared to a right 32-bit expression.
+  Comparing 'ibuf_cnt_dec' of type logic [(comm_defs_pkg::IBUF_AW - 1):0]
+  with 'comm_defs_pkg::IBUF_SZ' of type int.
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../CHIPKIT/ip/commctrl/decoder.sv, 199
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 22-bit wide expression is assigned to a 16-bit LHS target:
+  Source info: err_code <= 22'b0;
+  Expression: err_code
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../CHIPKIT/ip/commctrl/uartfront.sv, 120
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 32-bit wide expression is assigned to a 4-bit LHS target:
+  Source info: echobuf_wrcnt_nxt = (echobuf_wrxfer ? (echobuf_wrcnt + 1) : 
+  echobuf_wrcnt);
+  Expression: echobuf_wrcnt_nxt
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../CHIPKIT/ip/commctrl/uartfront.sv, 121
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 32-bit wide expression is assigned to a 4-bit LHS target:
+  Source info: echobuf_rdcnt_nxt = (echobuf_rdxfer ? (echobuf_rdcnt + 1) : 
+  echobuf_rdcnt);
+  Expression: echobuf_rdcnt_nxt
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../CHIPKIT/ip/commctrl/uartfront.sv, 122
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 32-bit wide expression is assigned to a 4-bit LHS target:
+  Source info: echobuf_depth_nxt = ((echobuf_wrxfer && echobuf_rdxfer) ? 
+  echobuf_depth : ((echobuf_wrxfer && (!echobuf_rdxfer)) ? (echobuf_depth + 1)
+  : (((!echobuf_wrxfer) & ...
+  Expression: echobuf_depth_nxt
+
+
+Lint-[ULCO] Unequal length in comparison operator
+../../CHIPKIT/ip/commctrl/uartfront.sv, 130
+uartfront, "(echobuf_depth == (comm_defs_pkg::EBUF_SZ - 1))"
+  A left 4-bit expression is compared to a right 32-bit expression.
+  Comparing 'echobuf_depth' of type logic [(comm_defs_pkg::EBUF_AW - 1):0]
+  with '(comm_defs_pkg::EBUF_SZ - 1)' of type int.
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../CHIPKIT/ip/commctrl/uartfront.sv, 161
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 32-bit wide expression is assigned to a 5-bit LHS target:
+  Source info: ibuf_cnt_nxt = (ibuf_update ? (ibuf_cnt + 1) : (sm_done ? 0 : 
+  ibuf_cnt));
+  Expression: ibuf_cnt_nxt
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+/usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_uart/verilog/cmsdk_apb_uart.v, 427
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 4-bit wide expression is assigned to a 5-bit LHS target:
+  Source info: nxt_tx_state = (tx_state + {3'b0, tx_state_inc});
+  Expression: nxt_tx_state
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+/usr/cots/ip_libraries/arm/AT510-MN-80001-r2p0-00rel0/logical/cmsdk_apb_uart/verilog/cmsdk_apb_uart.v, 565
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 4-bit wide expression is assigned to a 5-bit LHS target:
+  Source info: nxt_rx_state = (rx_state + {3'b0, rx_state_inc});
+  Expression: nxt_rx_state
+
+
+Lint-[VNGS] Variable never gets set
+../../models/generic/array.sv, 31
+  Following variable has never been set any value.
+  Source info: i
+
+
+Lint-[UI] Unused input
+../../models/generic/array.sv, 111
+  Following is an unused input.
+  Source info: load_addr
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../CHIPKIT/ip/commctrl/uart.sv, 25
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 32-bit wide expression is assigned to a 12-bit LHS target:
+  Source info: clk_div = (baud_div - 1);
+  Expression: clk_div
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../CHIPKIT/ip/commctrl/uart.sv, 114
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 32-bit wide expression is assigned to a 6-bit LHS target:
+  Source info: tx_cntdown_nxt = 4;
+  Expression: tx_cntdown_nxt
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../CHIPKIT/ip/commctrl/uart.sv, 115
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 32-bit wide expression is assigned to a 1-bit LHS target:
+  Source info: tx_out_nxt = 0;
+  Expression: tx_out_nxt
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../CHIPKIT/ip/commctrl/uart.sv, 116
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 32-bit wide expression is assigned to a 4-bit LHS target:
+  Source info: tx_bits_nxt = 8;
+  Expression: tx_bits_nxt
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../CHIPKIT/ip/commctrl/uart.sv, 122
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 32-bit wide expression is assigned to a 4-bit LHS target:
+  Source info: tx_bits_nxt = (tx_bits - 1);
+  Expression: tx_bits_nxt
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../CHIPKIT/ip/commctrl/uart.sv, 125
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 32-bit wide expression is assigned to a 6-bit LHS target:
+  Source info: tx_cntdown_nxt = 4;
+  Expression: tx_cntdown_nxt
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../CHIPKIT/ip/commctrl/uart.sv, 128
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 32-bit wide expression is assigned to a 1-bit LHS target:
+  Source info: tx_out_nxt = 1;
+  Expression: tx_out_nxt
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../CHIPKIT/ip/commctrl/uart.sv, 130
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 32-bit wide expression is assigned to a 6-bit LHS target:
+  Source info: tx_cntdown_nxt = 8;
+  Expression: tx_cntdown_nxt
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../CHIPKIT/ip/commctrl/uart.sv, 263
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 32-bit wide expression is assigned to a 6-bit LHS target:
+  Source info: rx_cntdown_nxt = 2;
+  Expression: rx_cntdown_nxt
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../CHIPKIT/ip/commctrl/uart.sv, 273
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 32-bit wide expression is assigned to a 6-bit LHS target:
+  Source info: rx_cntdown_nxt = 4;
+  Expression: rx_cntdown_nxt
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../CHIPKIT/ip/commctrl/uart.sv, 274
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 32-bit wide expression is assigned to a 4-bit LHS target:
+  Source info: rx_bits_nxt = 8;
+  Expression: rx_bits_nxt
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../CHIPKIT/ip/commctrl/uart.sv, 284
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 32-bit wide expression is assigned to a 6-bit LHS target:
+  Source info: rx_cntdown_nxt = 4;
+  Expression: rx_cntdown_nxt
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../CHIPKIT/ip/commctrl/uart.sv, 287
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 32-bit wide expression is assigned to a 4-bit LHS target:
+  Source info: rx_bits_nxt = (rx_bits - 1);
+  Expression: rx_bits_nxt
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../CHIPKIT/ip/commctrl/uart.sv, 300
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 32-bit wide expression is assigned to a 6-bit LHS target:
+  Source info: rx_cntdown_nxt = 8;
+  Expression: rx_cntdown_nxt
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../CHIPKIT/ip/ahb/AHB_BUS.sv, 117
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 32-bit wide expression is assigned to a 4-bit LHS target:
+  Source info: hsel_bin = j;
+  Expression: hsel_bin
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../CHIPKIT/ip/ahb/AHB_BUS.sv, 137
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 32-bit wide expression is assigned to a 4-bit LHS target:
+  Source info: hsel_reg_bin = 0;
+  Expression: hsel_reg_bin
+
+
+Lint-[WMIA-L] Width mismatch in assignment
+../../CHIPKIT/ip/ahb/AHB_BUS.sv, 139
+  Width mismatch between LHS and RHS is found in assignment:
+  The following 32-bit wide expression is assigned to a 4-bit LHS target:
+  Source info: hsel_reg_bin = j;
+  Expression: hsel_reg_bin
+
+
+Lint-[SVA-UA] Unnamed Assertion
+../../models/generic/MX_CLK_DIVIDER.sv, 35
+MX_CLK_DIVIDER
+  Unnamed Assertion found in design
+  \assert((!$isunknown(SEL[2:0]))) else $error("[%0t] %m, CASE: SEL[2:0] = X",
+  $time);
+
+
+Warning-[INTFDV] VCD dumping of interface/program/package
+../../top/tb_TOP.sv, 295
+  Selective VCD dumping of interface 'ahb_s_intf_0000' is not supported.  
+  Selective VCD dumping for interfaces, packages and programs is not 
+  supported.
+  Use full VCD dumping '$dumpvars(0)', or use VPD or FSDB dumping, recompile 
+  with '-debug_access'.
+
+Notice: Ports coerced to inout, use -notice for details
+Starting vcs inline pass...
+
+26 modules and 0 UDP read.
+recompiling module tb_TOP
+	However, due to incremental compilation, only 1 module needs to be compiled. 
+make[1]: Entering directory '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/csrc'
+make[1]: Leaving directory '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/csrc'
+make[1]: Entering directory '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/csrc'
+rm -f _cuarc*.so _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
+if [ -x ../simv ]; then chmod a-x ../simv; fi
+g++  -o ../simv      -rdynamic  -Wl,-rpath='$ORIGIN'/simv.daidir -Wl,-rpath=./simv.daidir -Wl,-rpath=/usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/linux64/lib -L/usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/linux64/lib  -Wl,-rpath-link=./  /usr/lib64/libnuma.so.1   objs/amcQw_d.o   _430887_archive_1.so _prev_archive_1.so   SIM_l.o      rmapats_mop.o rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o rmar_llvm_0_0.o            -lvirsim -lerrorinf -lsnpsmalloc -lvfs /usr/cots/synopsys/verdi/T-2022.06-1/share/PLI/VCS/LINUX64/pli.a    -lvcsnew -lsimprofile -luclinative /usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/linux64/lib/vcs_tls.o   -Wl,-whole-archive  -lvcsucli    -Wl,-no-whole-archive        _vcs_pli_stub_.o   /usr/cots/synopsys/VCS/vcs/T-2022.06-SP2-9/linux64/lib/vcs_save_restore_new.o /usr/cots/synopsys/verdi/T-2022.06-1/share/PLI/VCS/LINUX64/pli.a -ldl -lm  -lc -lpthread -ldl 
+../simv up to date
+make[1]: Leaving directory '/h/bliau02/ee166/Lab5_pt1/rtl_sim/sim/csrc'
+CPU time: 1.524 seconds to compile + .393 seconds to elab + .322 seconds to link
+Verdi KDB elaboration done and the database successfully generated: 0 error(s), 0 warning(s)
