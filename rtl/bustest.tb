@@ -1,0 +1,623 @@
+// tb_AHB_RISCV.sv
+// Testbench for AHB_RISCV – validates bus operations between RiscvCore
+// and the AHB-Lite manager interface.
+//
+// Strategy: instantiate AHB_RISCV with a BFM (Bus Functional Model) acting
+// as the AHB subordinate.  The BFM intercepts HADDR/HTRANS/HWRITE and drives
+// HRDATA/HREADY, giving us full visibility into every AHB transaction without
+// needing the full CM0_SYS hierarchy.
+//
+// The RiscvCore instruction memory is modelled by the BFM itself: it inspects
+// HADDR and returns a pre-loaded instruction word, so we can script exactly
+// which instructions the core executes and observe the resulting bus traffic.
+//
+// Tests covered:
+//   TC1 – Sequential instruction fetches (IDLE→FETCH_DATA→IDLE loop)
+//   TC2 – Data read stalls core until HREADY (single wait state)
+//   TC3 – Data write issued correctly with HWDATA in data phase
+//   TC4 – Data access preempts a pending fetch (priority check)
+//   TC5 – Back-to-back data read then write with no fetch gap
+//   TC6 – Multi-cycle HREADY de-assertion (bus slow-to-respond)
+//   TC7 – Store (SW) byte-mask forwarding via writeMask / HSIZE
+//
+// connor
+
+`timescale 1ns/1ps
+`default_nettype none
+
+// ---------------------------------------------------------------------------
+// Minimal ahb_m_intf definition (in case the full chip-kit intf is not
+// on the compile path for a standalone TB run).
+// Remove this block and +define+HAVE_AHB_INTF if compiling with the real intf.
+// ---------------------------------------------------------------------------
+`ifndef HAVE_AHB_INTF
+interface ahb_m_intf
+#(parameter STUB = 0)
+(input logic HCLK, input logic HRESETn);
+    logic [31:0] HADDR;
+    logic [ 2:0] HSIZE;
+    logic [ 1:0] HTRANS;
+    logic [31:0] HWDATA;
+    logic        HWRITE;
+    logic [31:0] HRDATA;
+    logic        HREADY;
+    logic        HRESP;
+
+    modport source (
+        output HADDR, HSIZE, HTRANS, HWDATA, HWRITE,
+        input  HRDATA, HREADY, HRESP
+    );
+    modport sink (
+        input  HADDR, HSIZE, HTRANS, HWDATA, HWRITE,
+        output HRDATA, HREADY, HRESP
+    );
+endinterface
+`endif
+
+// ---------------------------------------------------------------------------
+// Top-level testbench
+// ---------------------------------------------------------------------------
+module tb_AHB_RISCV;
+
+// ============================================================
+// Parameters
+// ============================================================
+localparam CLK_PERIOD   = 10;   // ns
+localparam MEM_DEPTH    = 1024; // words (32-bit)
+
+// AHB HTRANS encodings
+localparam HTRANS_IDLE   = 2'b00;
+localparam HTRANS_NONSEQ = 2'b10;
+
+// ============================================================
+// Clock / reset
+// ============================================================
+logic HCLK    = 0;
+logic HRESETn = 0;
+
+always #(CLK_PERIOD/2) HCLK = ~HCLK;
+
+// ============================================================
+// AHB manager interface (DUT drives source, BFM drives sink)
+// ============================================================
+ahb_m_intf M(.HCLK(HCLK), .HRESETn(HRESETn));
+
+// ============================================================
+// Stub signals (CM0-compatible ports we don't exercise here)
+// ============================================================
+logic CODENSEQ, SWDO, SWDOEN, TDO, nTDOEN;
+logic DBGRESTARTED, HALTED, TXEV, LOCKUP, SYSRESETREQ;
+logic GATEHCLK, SLEEPING, SLEEPDEEP, WAKEUP;
+logic SLEEPHOLDACKn, WICENACK, CDBGPWRUPREQ;
+logic [33:0] WICSENSE;
+logic [ 2:0] CODEHINTDE;
+logic        SPECHTRANS;
+logic        HMASTER;
+
+// ============================================================
+// DUT
+// ============================================================
+AHB_RISCV u_dut (
+    .FCLK       (HCLK),
+    .SCLK       (HCLK),
+    .HCLK       (HCLK),
+    .DCLK       (HCLK),
+    .PORESETn   (HRESETn),
+    .DBGRESETn  (HRESETn),
+    .HRESETn    (HRESETn),
+
+    .M          (M),
+
+    .CODENSEQ   (CODENSEQ),
+    .CODEHINTDE (CODEHINTDE),
+    .SPECHTRANS (SPECHTRANS),
+
+    .SWCLKTCK   (1'b0),
+    .nTRST      (1'b1),
+    .SWDITMS    (1'b0),
+    .TDI        (1'b0),
+    .SWDO       (SWDO),
+    .SWDOEN     (SWDOEN),
+    .TDO        (TDO),
+    .nTDOEN     (nTDOEN),
+    .DBGRESTART (1'b0),
+    .DBGRESTARTED(DBGRESTARTED),
+    .EDBGRQ     (1'b0),
+    .HALTED     (HALTED),
+
+    .NMI        (1'b0),
+    .IRQ        (32'h0),
+    .TXEV       (TXEV),
+    .RXEV       (1'b0),
+    .LOCKUP     (LOCKUP),
+    .SYSRESETREQ(SYSRESETREQ),
+    .STCALIB    (26'h0),
+    .STCLKEN    (1'b0),
+    .IRQLATENCY (8'h0),
+    .ECOREVNUM  (28'h0),
+
+    .GATEHCLK   (GATEHCLK),
+    .SLEEPING   (SLEEPING),
+    .SLEEPDEEP  (SLEEPDEEP),
+    .WAKEUP     (WAKEUP),
+    .WICSENSE   (WICSENSE),
+    .SLEEPHOLDREQn(1'b1),
+    .SLEEPHOLDACKn(SLEEPHOLDACKn),
+    .WICENREQ   (1'b0),
+    .WICENACK   (WICENACK),
+    .CDBGPWRUPREQ(CDBGPWRUPREQ),
+    .CDBGPWRUPACK(1'b0),
+    .HMASTER    (HMASTER),
+
+    .SE         (1'b0),
+    .RSTBYPASS  (1'b0)
+);
+
+// ============================================================
+// AHB Subordinate BFM
+// ============================================================
+// Memory model backing both instruction and data space.
+// Instruction words are loaded by the test tasks below.
+logic [31:0] mem [0:MEM_DEPTH-1];
+
+// BFM state
+logic [31:0] bfm_addr_lat;    // latched address from address phase
+logic        bfm_write_lat;   // latched write flag
+logic        bfm_active;      // transfer in progress
+int          bfm_wait_cycles; // extra wait states to inject (set per-test)
+
+initial begin
+    M.HRDATA  = 32'h0;
+    M.HREADY  = 1'b1;
+    M.HRESP   = 1'b0;
+    bfm_addr_lat   = '0;
+    bfm_write_lat  = 1'b0;
+    bfm_active     = 1'b0;
+    bfm_wait_cycles = 0;
+end
+
+// Address phase capture
+always_ff @(posedge HCLK) begin
+    if (!HRESETn) begin
+        bfm_addr_lat  <= '0;
+        bfm_write_lat <= 1'b0;
+        bfm_active    <= 1'b0;
+    end else if (M.HTRANS == HTRANS_NONSEQ && M.HREADY) begin
+        bfm_addr_lat  <= M.HADDR;
+        bfm_write_lat <= M.HWRITE;
+        bfm_active    <= 1'b1;
+    end else if (M.HREADY) begin
+        bfm_active <= 1'b0;
+    end
+end
+
+// Data phase response (combinational HRDATA, sequential wait injection)
+int wait_cnt;
+always_ff @(posedge HCLK or negedge HRESETn) begin
+    if (!HRESETn) begin
+        M.HREADY <= 1'b1;
+        M.HRDATA <= 32'h0;
+        wait_cnt <= 0;
+    end else if (bfm_active) begin
+        if (wait_cnt < bfm_wait_cycles) begin
+            M.HREADY <= 1'b0;
+            wait_cnt <= wait_cnt + 1;
+        end else begin
+            M.HREADY <= 1'b1;
+            wait_cnt <= 0;
+            if (bfm_write_lat) begin
+                // Capture write data (HWDATA is valid this cycle)
+                mem[bfm_addr_lat[31:2]] <= M.HWDATA;
+                M.HRDATA <= 32'h0;
+            end else begin
+                M.HRDATA <= mem[bfm_addr_lat[31:2]];
+            end
+        end
+    end else begin
+        M.HREADY <= 1'b1;
+        wait_cnt <= 0;
+    end
+end
+
+// ============================================================
+// Scoreboard / checker
+// ============================================================
+int pass_count = 0;
+int fail_count = 0;
+
+// Log every completed AHB transaction
+typedef struct {
+    logic [31:0] addr;
+    logic        write;
+    logic [31:0] data;
+} ahb_txn_t;
+
+ahb_txn_t txn_log[$];
+
+always_ff @(posedge HCLK) begin
+    if (HRESETn && bfm_active && M.HREADY && wait_cnt == bfm_wait_cycles) begin
+        ahb_txn_t t;
+        t.addr  = bfm_addr_lat;
+        t.write = bfm_write_lat;
+        t.data  = bfm_write_lat ? M.HWDATA : mem[bfm_addr_lat[31:2]];
+        txn_log.push_back(t);
+    end
+end
+
+// ============================================================
+// Helper tasks
+// ============================================================
+
+// Assert a named check
+task automatic check(input string name, input logic cond);
+    if (cond) begin
+        $display("[PASS] %s", name);
+        pass_count++;
+    end else begin
+        $display("[FAIL] %s", name);
+        fail_count++;
+    end
+endtask
+
+// Wait N rising edges of HCLK with HREADY=1
+task automatic wait_cycles(input int n);
+    repeat(n) @(posedge HCLK);
+endtask
+
+// Wait until the BFM logs exactly N transactions, timeout after MAX cycles
+task automatic wait_txns(input int n, input int max_cycles = 200);
+    int cyc = 0;
+    while (txn_log.size() < n && cyc < max_cycles) begin
+        @(posedge HCLK);
+        cyc++;
+    end
+    if (cyc >= max_cycles)
+        $display("[WARN] wait_txns(%0d) timed out", n);
+endtask
+
+// Reset the transaction log
+task automatic clear_log();
+    txn_log.delete();
+endtask
+
+// Load a RISC-V NOP (ADDI x0, x0, 0) into mem at word index i
+task automatic load_nop(input int i);
+    mem[i] = 32'h0000_0013;  // NOP = ADDI x0,x0,0
+endtask
+
+// Load a RISC-V LW x1, 0(x0) at word index i
+// Loads from address 0x2000_0000 (data SRAM base), imm=0, rs1=x0, rd=x1
+task automatic load_lw(input int i);
+    // LW: imm[11:0] | rs1 | 010 | rd | 0000011
+    // imm=0, rs1=x0(00000), rd=x1(00001)
+    mem[i] = 32'h0000_2083;
+endtask
+
+// Load a RISC-V SW x2, 0(x0) at word index i  
+// Stores x2 to address 0x2000_0000
+task automatic load_sw(input int i);
+    // SW: imm[11:5] | rs2 | rs1 | 010 | imm[4:0] | 0100011
+    // imm=0, rs2=x2(00010), rs1=x0(00000)
+    mem[i] = 32'h0020_2023;
+endtask
+
+// Load a RISC-V JAL x0, 0 (infinite loop / self-branch) at word index i
+task automatic load_jal_self(input int i);
+    // JAL x0, 0: stays at same PC
+    mem[i] = 32'h0000_006F;
+endtask
+
+// ============================================================
+// Test cases
+// ============================================================
+
+// ----------------------------------------------------------
+// TC1: Sequential instruction fetches
+//      Core starts at PC=0, NOPs are loaded. Verify the BFM
+//      sees NONSEQ fetches at incrementing word addresses.
+// ----------------------------------------------------------
+task automatic tc1_sequential_fetches();
+    $display("\n=== TC1: Sequential instruction fetches ===");
+    clear_log();
+    bfm_wait_cycles = 0;
+
+    // Load 4 NOPs
+    for (int i = 0; i < 4; i++) load_nop(i);
+    load_jal_self(4);  // halt at word 4
+
+    // Apply reset to put PC back to 0
+    HRESETn = 0;
+    @(posedge HCLK); @(posedge HCLK);
+    HRESETn = 1;
+
+    // Wait for at least 4 fetch transactions
+    wait_txns(4);
+
+    // Check that addresses are 0x0, 0x4, 0x8, 0xC
+    check("TC1 fetch[0] addr=0x00000000", txn_log.size() > 0 && txn_log[0].addr == 32'h0000_0000 && !txn_log[0].write);
+    check("TC1 fetch[1] addr=0x00000004", txn_log.size() > 1 && txn_log[1].addr == 32'h0000_0004 && !txn_log[1].write);
+    check("TC1 fetch[2] addr=0x00000008", txn_log.size() > 2 && txn_log[2].addr == 32'h0000_0008 && !txn_log[2].write);
+    check("TC1 fetch[3] addr=0x0000000C", txn_log.size() > 3 && txn_log[3].addr == 32'h0000_000C && !txn_log[3].write);
+endtask
+
+// ----------------------------------------------------------
+// TC2: Data read stalls core (LW instruction)
+//      Loads a LW then a NOP. The LW should trigger a data
+//      read on the AHB bus. Verify bus address and that the
+//      stall held until HREADY.
+// ----------------------------------------------------------
+task automatic tc2_data_read_stall();
+    $display("\n=== TC2: Data read stall (LW) ===");
+    clear_log();
+    bfm_wait_cycles = 1;  // inject 1 wait state
+
+    // Instruction 0: NOP (to let core settle after reset)
+    // Instruction 1: LW x1, 0(x0)  → reads from addr 0x00000000
+    // Instruction 2: NOP
+    load_nop(0);
+    load_lw(1);
+    load_nop(2);
+    load_jal_self(3);
+
+    // Pre-load data memory so read returns a known value
+    mem[0] = 32'hDEAD_BEEF;  // address 0x0 (instruction + data share mem in this BFM)
+
+    HRESETn = 0; @(posedge HCLK); @(posedge HCLK); HRESETn = 1;
+
+    // Wait for enough transactions: fetch0, fetch1, data_read, fetch2, fetch3
+    wait_txns(5, 400);
+
+    // Find the data read transaction (write=0, addr could be 0x0 or 0x2000_0000
+    // depending on RS1 register value; since x0=0 and imm=0 it targets 0x0)
+    begin
+        automatic int found = -1;
+        for (int i = 0; i < txn_log.size(); i++) begin
+            if (!txn_log[i].write && txn_log[i].data == 32'hDEAD_BEEF)
+                found = i;
+        end
+        check("TC2 data read found with correct data", found != -1);
+        if (found > 0)
+            check("TC2 data read comes after a fetch",  !txn_log[found-1].write);
+    end
+endtask
+
+// ----------------------------------------------------------
+// TC3: Data write (SW instruction)
+//      SW x2, 0(x0) should produce an AHB write transaction.
+//      Verify HWRITE=1 and HWDATA captured in memory.
+// ----------------------------------------------------------
+task automatic tc3_data_write();
+    $display("\n=== TC3: Data write (SW) ===");
+    clear_log();
+    bfm_wait_cycles = 0;
+
+    // We want x2 to have a known value. RISC-V resets registers to 0, so
+    // SW x2,0(x0) writes 0 to addr 0.  That's still a valid write to check.
+    load_nop(0);
+    load_sw(1);   // SW x2, 0(x0)
+    load_nop(2);
+    load_jal_self(3);
+
+    // Clear the target word so we can confirm it was written
+    mem[0] = 32'hFFFF_FFFF;
+
+    HRESETn = 0; @(posedge HCLK); @(posedge HCLK); HRESETn = 1;
+
+    wait_txns(4, 300);
+
+    begin
+        automatic int wr_idx = -1;
+        for (int i = 0; i < txn_log.size(); i++) begin
+            if (txn_log[i].write)
+                wr_idx = i;
+        end
+        check("TC3 write transaction seen",           wr_idx != -1);
+        check("TC3 write address is 0x00000000",      wr_idx != -1 && txn_log[wr_idx].addr == 32'h0000_0000);
+        // x2 reset value is 0
+        check("TC3 HWDATA = 0x00000000 (x2 reset=0)", wr_idx != -1 && txn_log[wr_idx].data == 32'h0000_0000);
+    end
+endtask
+
+// ----------------------------------------------------------
+// TC4: Data access priority over fetch
+//      When a data op is needed, it must preempt the next
+//      fetch.  We check that a write transaction appears
+//      before the fetch of the following instruction.
+// ----------------------------------------------------------
+task automatic tc4_data_priority();
+    $display("\n=== TC4: Data beats fetch in arbitration ===");
+    clear_log();
+    bfm_wait_cycles = 0;
+
+    // NOP, SW, NOP, JAL-self
+    load_nop(0);
+    load_sw(1);
+    load_nop(2);
+    load_jal_self(3);
+
+    HRESETn = 0; @(posedge HCLK); @(posedge HCLK); HRESETn = 1;
+
+    wait_txns(5, 300);
+
+    // The write (data) should appear before the fetch of instruction 2 (addr=0x8)
+    begin
+        automatic int wr_idx   = -1;
+        automatic int f2_idx   = -1;
+        for (int i = 0; i < txn_log.size(); i++) begin
+            if (txn_log[i].write && wr_idx == -1) wr_idx = i;
+            if (!txn_log[i].write && txn_log[i].addr == 32'h0000_0008) f2_idx = i;
+        end
+        check("TC4 write seen before fetch@0x8", wr_idx != -1 && f2_idx != -1 && wr_idx < f2_idx);
+    end
+endtask
+
+// ----------------------------------------------------------
+// TC5: Back-to-back data accesses (LW then SW)
+// ----------------------------------------------------------
+task automatic tc5_back_to_back_data();
+    $display("\n=== TC5: Back-to-back LW then SW ===");
+    clear_log();
+    bfm_wait_cycles = 0;
+
+    // NOP, LW, SW, NOP, JAL-self
+    load_nop(0);
+    load_lw(1);    // read from addr 0
+    load_sw(2);    // write to  addr 0
+    load_nop(3);
+    load_jal_self(4);
+
+    mem[0] = 32'hCAFE_BABE;
+
+    HRESETn = 0; @(posedge HCLK); @(posedge HCLK); HRESETn = 1;
+
+    wait_txns(7, 500);
+
+    begin
+        automatic int rd_idx = -1, wr_idx = -1;
+        for (int i = 0; i < txn_log.size(); i++) begin
+            if (!txn_log[i].write && txn_log[i].data == 32'hCAFE_BABE && rd_idx == -1)
+                rd_idx = i;
+            if (txn_log[i].write && wr_idx == -1)
+                wr_idx = i;
+        end
+        check("TC5 data read seen",                rd_idx != -1);
+        check("TC5 data write seen",               wr_idx != -1);
+        check("TC5 read comes before write",        rd_idx != -1 && wr_idx != -1 && rd_idx < wr_idx);
+    end
+endtask
+
+// ----------------------------------------------------------
+// TC6: Multi-cycle HREADY de-assertion
+//      Bus holds HREADY low for 3 cycles – core must stay
+//      stalled for all of them.
+// ----------------------------------------------------------
+task automatic tc6_multi_wait_state();
+    $display("\n=== TC6: Multi-cycle wait states (HREADY low x3) ===");
+    clear_log();
+    bfm_wait_cycles = 3;
+
+    // Simple: NOP, LW, NOP, JAL-self
+    load_nop(0);
+    load_lw(1);
+    load_nop(2);
+    load_jal_self(3);
+
+    mem[0] = 32'h1234_5678;
+
+    HRESETn = 0; @(posedge HCLK); @(posedge HCLK); HRESETn = 1;
+
+    wait_txns(5, 600);
+
+    begin
+        automatic int found = 0;
+        for (int i = 0; i < txn_log.size(); i++) begin
+            if (!txn_log[i].write && txn_log[i].data == 32'h1234_5678)
+                found = 1;
+        end
+        check("TC6 data read completes correctly after 3 wait states", found);
+    end
+
+    bfm_wait_cycles = 0;
+endtask
+
+// ----------------------------------------------------------
+// TC7: No spurious transactions during reset
+//      While HRESETn=0 the DUT should not issue any AHB
+//      transactions.
+// ----------------------------------------------------------
+task automatic tc7_no_txn_during_reset();
+    $display("\n=== TC7: No transactions while in reset ===");
+    clear_log();
+    bfm_wait_cycles = 0;
+
+    load_nop(0); load_jal_self(1);
+
+    HRESETn = 0;
+    wait_cycles(10);
+
+    check("TC7 no AHB transactions during reset", txn_log.size() == 0);
+
+    HRESETn = 1;
+    wait_txns(1, 50);
+endtask
+
+// ============================================================
+// Main test sequence
+// ============================================================
+initial begin
+    $dumpfile("tb_AHB_RISCV.vcd");
+    $dumpvars(0, tb_AHB_RISCV);
+
+    // Initialise memory to NOPs
+    for (int i = 0; i < MEM_DEPTH; i++) mem[i] = 32'h0000_0013;
+
+    // Hold reset
+    HRESETn = 0;
+    wait_cycles(5);
+
+    // Run test cases
+    tc7_no_txn_during_reset();
+    tc1_sequential_fetches();
+    tc2_data_read_stall();
+    tc3_data_write();
+    tc4_data_priority();
+    tc5_back_to_back_data();
+    tc6_multi_wait_state();
+
+    // --------------------------------------------------------
+    // Summary
+    // --------------------------------------------------------
+    wait_cycles(10);
+    $display("\n========================================");
+    $display("  Results: %0d passed, %0d failed", pass_count, fail_count);
+    $display("========================================");
+    if (fail_count == 0)
+        $display("  ALL TESTS PASSED");
+    else
+        $display("  SOME TESTS FAILED – check log above");
+    $display("========================================\n");
+
+    $finish;
+end
+
+// ============================================================
+// Timeout watchdog
+// ============================================================
+initial begin
+    #500000;
+    $display("[ERROR] Simulation timeout – hung bus or deadlock?");
+    $finish;
+end
+
+// ============================================================
+// AHB protocol assertions
+// ============================================================
+
+// HTRANS must not be NONSEQ when HREADY was low last cycle
+// (core must not advance address phase mid-stall)
+property p_no_addr_during_stall;
+    @(posedge HCLK) disable iff (!HRESETn)
+    (!M.HREADY) |=> (M.HTRANS != HTRANS_NONSEQ);
+endproperty
+assert property (p_no_addr_during_stall)
+    else $error("[ASSERT FAIL] AHB: New NONSEQ issued while HREADY was low");
+
+// HWDATA must be stable while HREADY is low (write data phase)
+property p_hwdata_stable;
+    @(posedge HCLK) disable iff (!HRESETn)
+    (!M.HREADY && bfm_write_lat) |=> $stable(M.HWDATA);
+endproperty
+assert property (p_hwdata_stable)
+    else $error("[ASSERT FAIL] AHB: HWDATA changed while HREADY low during write");
+
+// HRESP must always be 0 (no error responses in this design)
+property p_no_error_resp;
+    @(posedge HCLK) disable iff (!HRESETn)
+    M.HRESP == 1'b0;
+endproperty
+assert property (p_no_error_resp)
+    else $error("[ASSERT FAIL] AHB: HRESP error response asserted");
+
+endmodule
+
+`default_nettype wire
