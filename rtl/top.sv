@@ -1,5 +1,7 @@
 module top
 (
+    input logic coreclk,
+    input logic HRESETn
 );
 
     logic HCLK;
@@ -18,6 +20,13 @@ module top
         .HRESETn(HRESETn)
     );
 
+    AHB_CORE core (
+        .BUS_CLK(HCLK),
+        .BUS_RSTN(HRESETn),
+        .M(AHB_M),
+        .coreclk(coreclk)
+    );
+
     AHB_BUS #(.NSUBS(1), .DEFAULT_SUB(1), .DW(32), .AW(32),
         .S_ADDR_START ({
             32'h00000000
@@ -30,36 +39,6 @@ module top
         .HRESETn(HRESETn),
         .M(AHB_M),
         .S(AHB_S)
-    );
-
-    rvDefs::mem_addr_t instructionAddress;
-    rvDefs::instruction_t instructionWord;
-
-    InstructionMemory #(.ADDR_BITS(10)) imem(
-        .address(instructionAddress),
-        .instruction(instructionWord)
-    );
-
-    rvDefs::word_t memoryReadData;
-    rvDefs::word_t memoryWriteData;
-    rvDefs::mem_addr_t memoryAddress;
-    logic memRead;
-    logic memWrite;
-    logic [3 : 0] writeMask;
-    logic coreStall;
-
-    RiscvCore core(
-        .clk TODO
-        .resetN TODO
-        .instruction(instructionWord),
-        .instructionAddress(instructionAddress),
-        .memoryAddress(memoryAddress),
-        .readData(memoryReadData),
-        .writeData(memoryWriteData),
-        .memRead(memRead),
-        .memWrite(memWrite),
-        .writeMask(writeMask),
-        .stall(coreStall)
     );
 
 endmodule

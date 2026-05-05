@@ -5,15 +5,18 @@ module AHB_CORE
 (
     input logic BUS_CLK,
     input logic BUS_RSTN,
-    ahb_m_intf.source M
+    ahb_m_intf.source M,
+    logic coreclk
 );
 
 reg_intf #(.DW(32),.AW(32)) pregs();
+logic [1 : 0] writeMask;
 
 ahb_mgr #(.DW(32), .AW(32)) u_core ( 
     .clk (BUS_CLK),
     .rstn (BUS_RSTN),
     .M (M),
+    .size({1'b0, writeMask}),
     .regs (pregs),
 );
 
@@ -25,10 +28,8 @@ ahb_mgr #(.DW(32), .AW(32)) u_core (
         .instruction(instructionWord)
     );
 
-    logic [1 : 0] writeMask;
-
     RiscvCore core(
-        .clk TODO
+        .clk(coreclk),
         .resetN(BUS_RSTN),
         .instruction(instructionWord),
         .instructionAddress(instructionAddress),

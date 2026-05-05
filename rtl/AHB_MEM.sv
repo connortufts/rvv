@@ -23,13 +23,16 @@ ahb_sub_ours #(.DW(32), .AW(32)) u_mem (
     .hsize(hsize)
 );
 
+logic [31 : 0] dbgword;
+
 MemoryModule #(.ADDR_BITS(ADDR_BITS)) mem (
     .address(pregs.addr[ADDR_BITS-1:0]),
     .writeData(pregs.wdata),
     .memWrite(pregs.write_en),
     .clk(BUS_CLK),
     .byteWriteEnable(hsize[1:0]),
-    .readData(pregs.rdata)
+    .readData(pregs.rdata),
+    .debugword(dbgword)
 );
 
 endmodule

@@ -26,6 +26,7 @@ module ahb_mgr
     input  logic        clk,
     input  logic        rstn,
     ahb_m_intf.source   M,      // AHB manager port (drives bus)
+    logic [2:0] size,
     reg_intf.sink       regs    // Register interface from user logic
 );
 
@@ -178,7 +179,7 @@ always_comb begin
                 M.HTRANS = 2'b10;           // NONSEQ
                 M.HADDR  = {{(32-AW){1'b0}}, regs.addr[AW-1:0]};
                 M.HWRITE = req_write;
-                M.HSIZE  = regs.size;
+                M.HSIZE  = size;
             end
         end
         ADDR: begin
@@ -193,7 +194,7 @@ always_comb begin
                 M.HTRANS = 2'b10;
                 M.HADDR  = {{(32-AW){1'b0}}, regs.addr[AW-1:0]};
                 M.HWRITE = req_write;
-                M.HSIZE  = regs.size;
+                M.HSIZE  = size;
             end
         end
         default: ;

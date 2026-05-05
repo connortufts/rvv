@@ -8,10 +8,12 @@ module MemoryModule
 	input  logic memWrite,
 	input  logic clk,
 	input  logic [1:0] byteWriteEnable,
-	output rvDefs::word_t readData
+	output rvDefs::word_t readData,
+    output rvDefs::word_t debugword
 );
 	rvDefs::word_t memory [1 << (ADDR_BITS-2)];
     assign readData = memory[address[ADDR_BITS-1:2]];
+    assign debugword = memory[0];
 
     // write
     rvDefs::word_t mask;
