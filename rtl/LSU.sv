@@ -10,10 +10,10 @@ module LSU (
     output rvDefs::word_t           writeData,
     output logic [3:0]              byteWriteEnable,
     output rvDefs::word_t           memToRegData,
-    output logic [29 : 0]           effectiveAddress
+    output rvDefs::mem_addr_t           effectiveAddress
 );
 
-	assign effectiveAddress = address[31 : 2];
+	assign effectiveAddress = address;
     assign memWrite = (memoryOpSize != rvDefs::MEMORY_OP_SIZE_NONE) && (storeLoad == 1'b1);
     assign memRead = (memoryOpSize != rvDefs::MEMORY_OP_SIZE_NONE) && (storeLoad == 1'b0);
 

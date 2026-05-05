@@ -4,7 +4,7 @@ module RiscvCore
     input  logic                 resetN,             // system reset (for PC)
     input  rvDefs::instruction_t instruction,        // instruction value from imem
     output rvDefs::mem_addr_t    instructionAddress, // instruction address to imem
-    output logic [29 : 0]        memoryAddress,      // address to memory space TODO
+    output rvDefs::mem_addr_t memoryAddress,      // address to memory space TODO
     input  rvDefs::word_t        readData,           // data read in from memory TODO
     output rvDefs::word_t        writeData,          // data to write to memory TODO
     output logic                 memRead,            // issue a memory read op TODO

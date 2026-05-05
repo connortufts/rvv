@@ -1,4 +1,8 @@
 rtl/top.sv
+rtl/RiscvCore.sv
+rtl/LSU.sv
+rtl/InstructionMemory.sv
+rtl/MemoryModule.sv
 rtl/ProgramCounter.sv
 rtl/InstructionDecoder.sv
 rtl/ImmediateGenerator.sv

@@ -14,14 +14,15 @@ module top
     logic memWrite;
     logic [3 : 0] writeMask;
     logic coreStall;
+    assign coreStall = 0;
 
     InstructionMemory #(.ADDR_BITS(8)) imem(
-        .address(instructionAddress[7 : 0]),
+        .address(instructionAddress),
         .instruction(instructionWord)
     );
 
-    MemoryModule #(.ADDR_BIS(16)) dmem(
-        .address(memoryAddress[15 : 0]),
+    MemoryModule #(.ADDR_BITS(16)) dmem(
+        .address(memoryAddress),
         .writeData(memoryWriteData),
         .readData(memoryReadData),
         .memWrite(memWrite),
