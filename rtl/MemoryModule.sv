@@ -10,15 +10,15 @@ module MemoryModule
 	input  logic [3:0] byteWriteEnable, 				// Byte Write Enable
 	output rvDefs::word_t readData
 );
-	rvDefs::word_t memory [1 << ADDR_BITS];
-    assign readData = memory[address];
+	rvDefs::word_t memory [1 << (ADDR_BITS - 2)];
+    assign readData = memory[address[ADDR_BITS - 1 : 2]];
 
     // write
     rvDefs::word_t mask;
     assign mask = { {8{byteWriteEnable[3]}}, {8{byteWriteEnable[2]}}, {8{byteWriteEnable[1]}}, {8{byteWriteEnable[0]}} };
 	always_ff @(posedge clk) begin
 		if (memWrite) begin
-            memory[address] <= (mask & writeData) | (~mask & memory[address]);
+            memory[address[ADDR_BITS - 1 : 2]] <= (mask & writeData) | (~mask & memory[address[ADDR_BITS - 1 : 2]]);
 		end
 	end
 endmodule
