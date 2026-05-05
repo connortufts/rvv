@@ -5,7 +5,11 @@
 //
 // NOTES:
 //  - Only supports single (non-burst) transfers.
-//  - Only supports full-word (32-bit) transactions (HSIZE = 3'b010).
+//  - Supports byte (HSIZE=3'b000), halfword (HSIZE=3'b001), and
+//    word (HSIZE=3'b010) transfers with full AHB byte-lane steering.
+//  - Write data is replicated and placed on the correct byte lanes per
+//    the AHB-lite spec (HADDR[1:0] selects the active lane).
+//  - Read data is extracted from the correct byte lane and zero-extended.
 //  - Does not drive HPROT, HMASTLOCK, or HBURST (AHB-lite).
 //  - HTRANS is NONSEQ (2'b10) for valid transfers, IDLE (2'b00) otherwise.
 //  - A new transfer cannot be issued until the current one completes
@@ -39,23 +43,31 @@ state_t state, next_state;
 // -----------------------------------------------------------------------
 // Capture incoming request from reg_intf
 // -----------------------------------------------------------------------
+// Transfer size encoding (matches AHB HSIZE):
+//   SIZE_BYTE     = 3'b000  -> 8-bit
+//   SIZE_HALFWORD = 3'b001  -> 16-bit
+//   SIZE_WORD     = 3'b010  -> 32-bit
+localparam logic [2:0] SIZE_BYTE     = 3'b000;
+localparam logic [2:0] SIZE_HALFWORD = 3'b001;
+localparam logic [2:0] SIZE_WORD     = 3'b010;
+
 logic req_valid;
 logic req_write;
-logic [AW-1:0] req_addr;
-logic [DW-1:0] req_wdata;
 
 always_comb req_valid = regs.write_en | regs.read_en;
 always_comb req_write = regs.write_en;
 
 // Latch request at the start of the address phase so signals are stable
 // through the data phase even if the caller de-asserts early.
-logic        lat_write;
+logic          lat_write;
 logic [AW-1:0] lat_addr;
 logic [DW-1:0] lat_wdata;
+logic [2:0]    lat_size;   // latched HSIZE for current transfer
 
 `FF(req_write,           lat_write,          clk, (state == IDLE && req_valid), rstn, '0);
 `FF(regs.addr[AW-1:0],  lat_addr[AW-1:0],   clk, (state == IDLE && req_valid), rstn, '0);
 `FF(regs.wdata[DW-1:0], lat_wdata[DW-1:0],  clk, (state == IDLE && req_valid), rstn, '0);
+`FF(regs.size,           lat_size,           clk, (state == IDLE && req_valid), rstn, SIZE_WORD);
 
 // -----------------------------------------------------------------------
 // FSM – next state
@@ -92,13 +104,71 @@ end
 // -----------------------------------------------------------------------
 // AHB output drive
 // -----------------------------------------------------------------------
+
+// ---- Helper: replicate narrow write data across all active byte lanes ----
+// AHB-lite spec: the manager must place write data on every active byte lane.
+// For a byte write to lane N, HWDATA[8N+7:8N] must hold the data.
+// Replicating the LSB across all lanes is the standard approach.
+function automatic logic [DW-1:0] steer_wdata(
+    input logic [DW-1:0] data,
+    input logic [1:0]    byte_addr,   // HADDR[1:0]
+    input logic [2:0]    size
+);
+    logic [DW-1:0] steered;
+    steered = '0;
+    case (size)
+        SIZE_BYTE: begin
+            // Replicate byte to all lanes; subordinate uses HADDR[1:0] to pick
+            steered = {4{data[7:0]}};
+        end
+        SIZE_HALFWORD: begin
+            // Replicate halfword to both lanes; HADDR[1] selects upper/lower
+            steered = {2{data[15:0]}};
+        end
+        default: begin  // SIZE_WORD (and any unsupported size)
+            steered = data;
+        end
+    endcase
+    return steered;
+endfunction
+
+// ---- Helper: extract read data from the correct byte lane ----
+function automatic logic [DW-1:0] extract_rdata(
+    input logic [DW-1:0] bus_data,
+    input logic [1:0]    byte_addr,
+    input logic [2:0]    size
+);
+    logic [DW-1:0] extracted;
+    extracted = '0;
+    case (size)
+        SIZE_BYTE: begin
+            case (byte_addr)
+                2'b00: extracted = {{24{1'b0}}, bus_data[7:0]};
+                2'b01: extracted = {{24{1'b0}}, bus_data[15:8]};
+                2'b10: extracted = {{24{1'b0}}, bus_data[23:16]};
+                2'b11: extracted = {{24{1'b0}}, bus_data[31:24]};
+            endcase
+        end
+        SIZE_HALFWORD: begin
+            case (byte_addr[1])
+                1'b0:  extracted = {{16{1'b0}}, bus_data[15:0]};
+                1'b1:  extracted = {{16{1'b0}}, bus_data[31:16]};
+            endcase
+        end
+        default: begin  // SIZE_WORD
+            extracted = bus_data;
+        end
+    endcase
+    return extracted;
+endfunction
+
 // Address / control phase outputs
 always_comb begin
     // Defaults
     M.HTRANS = 2'b00;   // IDLE
     M.HADDR  = '0;
     M.HWRITE = 1'b0;
-    M.HSIZE  = 3'b010;  // 32-bit word
+    M.HSIZE  = SIZE_WORD;
 
     case (state)
         IDLE: begin
@@ -108,12 +178,14 @@ always_comb begin
                 M.HTRANS = 2'b10;           // NONSEQ
                 M.HADDR  = {{(32-AW){1'b0}}, regs.addr[AW-1:0]};
                 M.HWRITE = req_write;
+                M.HSIZE  = regs.size;
             end
         end
         ADDR: begin
             M.HTRANS = 2'b10;               // NONSEQ
             M.HADDR  = {{(32-AW){1'b0}}, lat_addr[AW-1:0]};
             M.HWRITE = lat_write;
+            M.HSIZE  = lat_size;
         end
         DATA: begin
             if (M.HREADY && req_valid) begin
@@ -121,17 +193,18 @@ always_comb begin
                 M.HTRANS = 2'b10;
                 M.HADDR  = {{(32-AW){1'b0}}, regs.addr[AW-1:0]};
                 M.HWRITE = req_write;
+                M.HSIZE  = regs.size;
             end
         end
         default: ;
     endcase
 end
 
-// Write data phase output – present HWDATA during the data phase
+// Write data phase output – byte-lane steered per AHB-lite spec
 always_comb begin
     M.HWDATA = '0;
     if (state == DATA && lat_write)
-        M.HWDATA = lat_wdata;
+        M.HWDATA = steer_wdata(lat_wdata, lat_addr[1:0], lat_size);
 end
 
 // -----------------------------------------------------------------------
@@ -141,7 +214,7 @@ end
 logic rd_data_valid;
 always_comb rd_data_valid = (state == DATA) && M.HREADY && !lat_write;
 
-always_comb regs.rdata  = rd_data_valid ? M.HRDATA[DW-1:0] : '0;
+always_comb regs.rdata  = rd_data_valid ? extract_rdata(M.HRDATA[DW-1:0], lat_addr[1:0], lat_size) : '0;
 always_comb regs.rvalid = rd_data_valid;
 
 // Transfer complete (write or read) – one-cycle pulse
