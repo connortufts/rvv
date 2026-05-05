@@ -19,7 +19,7 @@ ahb_sub_ours #(.DW(32), .AW(32)) u_mem (
     .clk (BUS_CLK),
     .rstn (BUS_RSTN),
     .S (S),
-    .regs (pregs.source),
+    .regs (pregs),
     .hsize(hsize)
 );
 
