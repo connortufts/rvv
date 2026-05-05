@@ -3,22 +3,32 @@ module MemoryModule
     parameter ADDR_BITS = 16
 )
 (
-	input  logic [ADDR_BITS - 1 : 0] address,
+	input  logic [ADDR_BITS - 1: 0] address,
 	input  rvDefs::word_t writeData,
 	input  logic memWrite,
 	input  logic clk,
-	input  logic [3:0] byteWriteEnable, 				// Byte Write Enable
+	input  logic [1:0] byteWriteEnable,
 	output rvDefs::word_t readData
 );
-	rvDefs::word_t memory [1 << ADDR_BITS];
-    assign readData = memory[address];
+	rvDefs::word_t memory [1 << (ADDR_BITS-2)];
+    assign readData = memory[address[ADDR_BITS-1:2]];
 
     // write
     rvDefs::word_t mask;
-    assign mask = { {8{byteWriteEnable[3]}}, {8{byteWriteEnable[2]}}, {8{byteWriteEnable[1]}}, {8{byteWriteEnable[0]}} };
+    logic [3 : 0] bytemask;
+    always_comb begin
+        case (byteWriteEnable)
+            2'b00: bytemask = (4'b1 << address[1:0]);
+            2'b01: begin
+                if(address[1]) bytemask = 4'b1100;
+                else bytemask = 4'b0011;
+            end
+            2'b10: bytemask = 4'b1111;
+    end
+    assign mask = { {8{bytemask[3]}}, {8{bytemask[2]}}, {8{bytemask[1]}}, {8{bytemask[0]}} };
 	always_ff @(posedge clk) begin
 		if (memWrite) begin
-            memory[address] <= (mask & writeData) | (~mask & memory[address]);
+            memory[address[ADDR_BITS-1:2]] <= (mask & writeData) | (~mask & memory[address[ADDR_BITS-1:2]]);
 		end
 	end
 endmodule

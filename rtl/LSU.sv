@@ -8,12 +8,12 @@ module LSU (
     output logic                    memWrite,
     output logic                    memRead,
     output rvDefs::word_t           writeData,
-    output logic [3:0]              byteWriteEnable,
+    output logic [1:0]              byteWriteEnable,
     output rvDefs::word_t           memToRegData,
-    output logic [29 : 0]           effectiveAddress
+    output rvDefs::mem_addr_t       effectiveAddress
 );
 
-	assign effectiveAddress = address[31 : 2];
+	assign effectiveAddress = address;
     assign memWrite = (memoryOpSize != rvDefs::MEMORY_OP_SIZE_NONE) && (storeLoad == 1'b1);
     assign memRead = (memoryOpSize != rvDefs::MEMORY_OP_SIZE_NONE) && (storeLoad == 1'b0);
 
@@ -21,19 +21,19 @@ module LSU (
         if (storeLoad == 1'b1) begin // writing
             case (memoryOpSize)
                 rvDefs::MEMORY_OP_SIZE_BYTE: begin
-                    byteWriteEnable = 4'b1 << address[1:0];
+                    byteWriteEnable = 2'b00;
                     writeData = ({24'b0, regToMemData[7:0]} << (8 * address[1:0]));
                 end
                 rvDefs::MEMORY_OP_SIZE_HALF: begin
-                    byteWriteEnable = 4'b11 << {address[1], 1'b0};
+                    byteWriteEnable = 2'b01;
                     writeData = ({16'b0, regToMemData[15:0]} << (16 * address[1]));
                 end
                 rvDefs::MEMORY_OP_SIZE_WORD: begin
-                    byteWriteEnable = 4'b1111;
+                    byteWriteEnable = 2'b10;
                     writeData = regToMemData;
                 end
                 default: begin
-                    byteWriteEnable = 4'b0;
+                    byteWriteEnable = 2'b00;
                     writeData = 32'b0;
                 end
             endcase
