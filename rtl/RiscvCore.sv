@@ -4,13 +4,13 @@ module RiscvCore
     input  logic                 resetN,             // system reset (for PC)
     input  rvDefs::instruction_t instruction,        // instruction value from imem
     output rvDefs::mem_addr_t    instructionAddress, // instruction address to imem
-    output rvDefs::mem_addr_t    memoryAddress,      // address to memory space TODO
-    input  rvDefs::word_t        readData,           // data read in from memory TODO
-    output rvDefs::word_t        writeData,          // data to write to memory TODO
-    output logic                 memRead,            // issue a memory read op TODO
-    output logic                 memWrite,           // issue a memory write op TODO
-    output logic [3 : 0]         writeMask,          // byte mask for writing TODO
-    input  logic                 stall               // if the core should stall TODO
+    output rvDefs::mem_addr_t    memAddress,         // address to memory space
+    input  rvDefs::word_t        memReadData,        // data read in from memory
+    output rvDefs::word_t        memWriteData,       // data to write to memory
+    output logic                 memRead,            // issue a memory read op
+    output logic                 memWrite,           // issue a memory write op
+    output logic [2 : 0]         memSize,            // byte mask for writing
+    input  logic                 stall               // if the core should stall
 );
 
     /******************************
@@ -116,17 +116,14 @@ module RiscvCore
 
     LSU lsu(
         .memoryOpSize(memoryOpSize),
-        .regToMemData(read2Data),
         .unsignedLoad(unsignedLoad),
         .storeLoad(storeLoad),
-        .address(aluResult),
-        .readData(readData),
+        .address(memAddress),
+        .readData(memReadData),
         .memWrite(memWrite),
         .memRead(memRead),
-        .writeData(writeData),
-        .byteWriteEnable(writeMask),
-        .memToRegData(memToRegData),
-        .effectiveAddress(memoryAddress)
+        .memSize(memSize),
+        .memToRegData(memToRegData)
     );
 
     /******************************
@@ -159,4 +156,10 @@ module RiscvCore
                 registerWriteData = 0;
         endcase
     end
+    
+    /******************************
+     * memory logic
+     ******************************/
+    assign memAddress = aluResult;
+    assign memWriteData = read2Data;
 endmodule
