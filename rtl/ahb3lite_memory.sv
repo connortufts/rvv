@@ -134,13 +134,15 @@ module ahb3lite_memory #(
     //  Synchronous read; word-aligned, full 32-bit word always read out.
     //  Byte/halfword extraction is done by the master using HSIZE/HADDR.
     // =========================================================================
-    wire [ADDR_BITS-1:0] word_addr_r = HADDR[ADDR_BITS+1:2];
+    //wire [ADDR_BITS-1:0] word_addr_r = HADDR[ADDR_BITS+1:2];
+    wire [ADDR_BITS-1:0] word_addr_r = addr_lat[ADDR_BITS+1:2];
     wire [ADDR_BITS+1:0] byte_base_r = {word_addr_r, 2'b00};
 
     always_ff @(posedge HCLK or negedge HRESETn) begin
         if (!HRESETn) begin
             HRDATA <= '0;
-        end else if (active && !HWRITE) begin
+        //end else if (active && !HWRITE) begin
+        end else if (sel_lat && !write_lat) begin
             HRDATA <= { mem[byte_base_r + 3],
                         mem[byte_base_r + 2],
                         mem[byte_base_r + 1],
