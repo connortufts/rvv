@@ -12,18 +12,15 @@ module ProgramCounter
     output rvDefs::mem_addr_t addrOut     // the address of the instruction currently being fetched
 );
 
-    localparam rvDefs::mem_addr_t INCREMENT = 4;
-    logic resetFlag;
+    localparam rvDefs::mem_addr_t INCREMENT = 32'd4;
     rvDefs::mem_addr_t addrNext;
     assign addrNext = (load ? (addrLoad) : (addrOut + INCREMENT));
 
     always_ff @(posedge clk or negedge resetN) begin
         if (!resetN) begin
             addrOut <= RESET_VALUE;
-            resetFlag <= 1;
         end else if (enable) begin
-            addrOut <= (resetFlag ? RESET_VALUE : addrNext);
-            resetFlag <= 0;
+            addrOut <= addrNext;
         end
     end
 
