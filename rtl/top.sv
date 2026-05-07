@@ -127,7 +127,7 @@ module top #(
         .addr ( rom_addr  ),
         .data ( rom_data  )
     );*/
-    logic rvDefs::instruction_t imem [0 : ROM_DEPTH - 1];
+    logic instruction_t imem [0 : ROM_DEPTH - 1];
     assign rom_data = imem[rom_addr];
 
     /*

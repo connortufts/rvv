@@ -1,12 +1,13 @@
+import rvDefs::*;
 module RiscvCore
 (
     input  logic                 clk,                // system clock
     input  logic                 resetN,             // system reset (for PC)
-    input  rvDefs::instruction_t instruction,        // instruction value from imem
-    output rvDefs::mem_addr_t    instructionAddress, // instruction address to imem
-    output rvDefs::mem_addr_t    memAddress,         // address to memory space
-    input  rvDefs::word_t        memReadData,        // data read in from memory
-    output rvDefs::word_t        memWriteData,       // data to write to memory
+    input  instruction_t instruction,        // instruction value from imem
+    output mem_addr_t    instructionAddress, // instruction address to imem
+    output mem_addr_t    memAddress,         // address to memory space
+    input  word_t        memReadData,        // data read in from memory
+    output word_t        memWriteData,       // data to write to memory
     output logic                 memRead,            // issue a memory read op
     output logic                 memWrite,           // issue a memory write op
     output logic [2 : 0]         memSize,            // byte mask for writing
@@ -29,35 +30,35 @@ module RiscvCore
     /******************************
      * instruction decoder values
      ******************************/
-    rvDefs::xreg_addr_t      rs1;                    // operand register 1
-    rvDefs::xreg_addr_t      rs2;                    // operand register 2
-    rvDefs::xreg_addr_t      rd;                     // destination register
+    xreg_addr_t      rs1;                    // operand register 1
+    xreg_addr_t      rs2;                    // operand register 2
+    xreg_addr_t      rd;                     // destination register
     logic                    xaluArithmeticFlag;     // integer arithmetic operation alternate flag
-    rvDefs::xalu_op_t        xaluOp;                 // integer arithmetic operation
+    xalu_op_t        xaluOp;                 // integer arithmetic operation
     logic                    zeroXaluPrimary;        // integer ALU primary input as 0s
     logic                    pcXaluPrimary;          // integer ALU primary input as PC value
     logic                    immediateXaluSecondary; // integer ALU secondary input as immediate value
-    rvDefs::memory_op_size_t memoryOpSize;           // operand size of memory instruction (B, HW, W), or none at all
+    memory_op_size_t memoryOpSize;           // operand size of memory instruction (B, HW, W), or none at all
     logic                    unsignedLoad;           // load instruction uses unsigned data
     logic                    storeLoad;              // if memory instruction is a store or a load
-    rvDefs::branch_op_t      branchOp;               // type of branch operation, or none at all
+    branch_op_t      branchOp;               // type of branch operation, or none at all
     logic                    branchNegate;           // if the branch test should be negated
     logic                    jump;                   // jump instruction
-    rvDefs::write_src_t      writeSource;            // where to write integer registers from, or none at all
+    write_src_t      writeSource;            // where to write integer registers from, or none at all
 
     /******************************
      * register file values
      ******************************/
-    rvDefs::xreg_t read1Data; // data in register selected with rs1
-    rvDefs::xreg_t read2Data; // data in register selected with rs2
-    rvDefs::word_t registerWriteData; // data to go into register selected with rd
+    xreg_t read1Data; // data in register selected with rs1
+    xreg_t read2Data; // data in register selected with rs2
+    word_t registerWriteData; // data to go into register selected with rd
 
     /******************************
      * other values
      ******************************/
-    rvDefs::word_t memToRegData;  // data to be written to integer registers from read
-    rvDefs::word_t immediate; // word of immediate data from instruction
-    rvDefs::word_t aluResult; // result of integer ALU operation
+    word_t memToRegData;  // data to be written to integer registers from read
+    word_t immediate; // word of immediate data from instruction
+    word_t aluResult; // result of integer ALU operation
 
     /******************************
      * modules
@@ -71,7 +72,7 @@ module RiscvCore
         .addrOut(instructionAddress)
     );
 
-    ImmediateGenerator immedaiteGenerator(
+    ImmediateGenerator immediateGenerator(
         .instruction(instruction),
         .immediate(immediate)
     );
@@ -97,8 +98,8 @@ module RiscvCore
 
     XRegisterFile xRegisterFile(
         .clk(clk),
-        .writeEnable((writeSource != rvDefs::WRITE_SRC_NONE) && ~stall),
-        .read1Reg(zeroXaluPrimary ? rvDefs::xreg_addr_t'(0) : rs1),
+        .writeEnable((writeSource != WRITE_SRC_NONE) && ~stall),
+        .read1Reg(zeroXaluPrimary ? xreg_addr_t'(0) : rs1),
         .read2Reg(rs2),
         .writeReg(rd),
         .read1Data(read1Data),
@@ -131,11 +132,11 @@ module RiscvCore
      ******************************/
     always_comb begin
         case (branchOp)
-            rvDefs::BRANCH_OP_EQ:
+            BRANCH_OP_EQ:
                 branchPass = ((read1Data == read2Data) ^ branchNegate);
-            rvDefs::BRANCH_OP_LT:
+            BRANCH_OP_LT:
                 branchPass = (($signed(read1Data) < $signed(read2Data)) ^ branchNegate);
-            rvDefs::BRANCH_OP_LTU:
+            BRANCH_OP_LTU:
                 branchPass = ((read1Data < read2Data) ^ branchNegate);
             default: branchPass = 0;
         endcase
@@ -146,12 +147,12 @@ module RiscvCore
      ******************************/
     always_comb begin
         case (writeSource)
-            rvDefs::WRITE_SRC_ALU:
+            WRITE_SRC_ALU:
                 registerWriteData = aluResult;
-            rvDefs::WRITE_SRC_MEM:
+            WRITE_SRC_MEM:
                 registerWriteData = memToRegData;
-            rvDefs::WRITE_SRC_PC:
-                registerWriteData = instructionAddress + rvDefs::word_t'(3'd4);
+            WRITE_SRC_PC:
+                registerWriteData = instructionAddress + word_t'(3'd4);
             default:
                 registerWriteData = 0;
         endcase
