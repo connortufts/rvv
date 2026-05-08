@@ -1,0 +1,27 @@
+//macro.vc
+
++libext+.v+.sv
++define+SYNTHESIS
+
+// include below line-by-line the path to all relevant RTL files used to build the Macro
+
+
+../rtl/rvDefs.sv
+../rtl/ahb3lite_pkg.sv
+../rtl/ahb3lite_interconnect_master_port.sv
+../rtl/ahb3lite_interconnect_slave_port.sv
+../rtl/ahb3lite_interconnect_slave_priority.sv
+../rtl/ahb3lite_interconnect.sv
+../rtl/ahb3lite_memory.sv
+../rtl/ImmediateGenerator.sv
+../rtl/InstructionDecoder.sv
+../rtl/InstructionMemory.sv
+../rtl/LSU.sv
+../rtl/MemoryModule.sv
+../rtl/ProgramCounter.sv
+../rtl/riscv_ahb_master.sv
+../rtl/RiscvCore.sv
+../rtl/top.sv
+../rtl/XALU.sv
+../rtl/XRegisterFile.sv
++incdir+/ee/166/CHIPKIT/ip/rtl_inc/
