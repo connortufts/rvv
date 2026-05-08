@@ -1,3 +1,4 @@
+`timescale 1ns/1ps
 module InstructionDecoder
 (
     input  rvDefs::instruction_t    instruction,            // value of instruction to decode

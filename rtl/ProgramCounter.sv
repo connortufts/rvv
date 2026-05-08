@@ -1,3 +1,4 @@
+`timescale 1ns/1ps
 module ProgramCounter
 #(
     parameter rvDefs::mem_addr_t RESET_VALUE = rvDefs::mem_addr_t'(0)

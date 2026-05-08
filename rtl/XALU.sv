@@ -1,3 +1,4 @@
+`timescale 1ns/1ps
 module XALU
 (
     input  rvDefs::word_t    inputPrimary,   // first input, either value of PC, x[0], or x[rs1]

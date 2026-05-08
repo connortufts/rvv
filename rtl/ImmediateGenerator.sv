@@ -1,3 +1,4 @@
+`timescale 1ns/1ps
 module ImmediateGenerator
 (
     input  rvDefs::instruction_t instruction, // the instruction to generate from

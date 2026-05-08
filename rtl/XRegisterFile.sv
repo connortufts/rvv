@@ -1,3 +1,4 @@
+`timescale 1ns/1ps
 module XRegisterFile
 (
     input  logic               clk,         // apply register writes if any on rising edge

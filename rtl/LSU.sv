@@ -1,3 +1,4 @@
+`timescale 1ns/1ps
 module LSU (
     input  rvDefs::memory_op_size_t memoryOpSize,
     input  logic                    unsignedLoad,
