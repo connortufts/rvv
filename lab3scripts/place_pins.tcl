@@ -17,7 +17,7 @@ editPin -pin $m5_ports \
         -spreadDirection clockwise \
         -start [list $pin_llx $macro_ury] -end [list $pin_urx $macro_ury] \
         -layer M5 \
-        -fixOverlap 1 \
-        -side BOTTOM
+        -side BOTTOM \
+        -fixOverlap 1
 
 setPinConstraint -cell ${rm_core_top} -pin * -layer {M2 M3 M5 M7 M9}

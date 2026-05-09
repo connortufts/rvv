@@ -1,0 +1,11 @@
+**INFO: Starting Blocking QThread with 16 CPU
+   ____________________________________________________________________
+__/ message from Blocking QThread
+Multi-CPU acceleration using 16 CPU(s).
+*** QThread MetricCollect [begin] (clock_opt_design #2) : mem = 0.3M
+Multithreaded Timing Analysis is initialized with 16 threads
+
+Ending "set_metric_additional_insts" (total cpu=0:00:00.2, real=0:00:01.0, peak res=6116.7M, current mem=5199.2M)
+Ending "set_metric_inst_count_area" (total cpu=0:00:00.3, real=0:00:00.0, peak res=5247.6M, current mem=5208.5M)
+*** QThread MetricCollect [finish] (clock_opt_design #2) : cpu/real = 0:00:00.9/0:00:00.9 (1.0), mem = 0.3M
+_______________________________________________________________________

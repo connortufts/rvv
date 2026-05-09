@@ -129,7 +129,7 @@ set hold_fixing_cells [list BUFFD2BWP16P90 BUFFD4BWP16P90 BUFFD8BWP16P90 BUFFD16
 # Design Clock Period 
 # -----------------------------------------------------------------------------------
 
-set rm_clock_period 100 ;# Target clock period in ns of the macro
+set rm_clock_period 20 ;# Target clock period in ns of the macro
 
 # ---------------------------------------------------------------------------------------------------
 # Parameters used in Timing Characterization
@@ -141,7 +141,6 @@ set rm_driving_cell BUFFD8BWP16P90 ;# The driving cell for all inputs
 set rm_driving_pin Z ;# The output pin of the driving cell
 
 set rm_dont_use_list [list *BWP20* *LVT]
-#set rm_dont_use_list [list *BWP20*]
 
 set rm_clock_driving_cell [list CKBD1BWP20P90 CKBD2BWP20P90 CKBD4BWP20P90 CKBD8BWP20P90 CKBD12BWP20P90 CKBD16BWP20P90] ;# The driving cell for clock ports
 set rm_clock_driving_pin Z ;# The output pin of the clock driving cell

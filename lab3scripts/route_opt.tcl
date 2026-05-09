@@ -111,8 +111,7 @@ setExtractRCMode -engine postRoute -effortLevel medium
 #setOptMode -verbose true
 #setOptMode -highEffortOptCells $hold_fixing_cells
 setOptMode -holdFixingCells $hold_fixing_cells
-#setOptMode -holdTargetSlack 0.01
-#setOptMode -setupTargetSlack 0.01
+setOptMode -holdTargetSlack 0.07
 optDesign -postRoute -drv
 optDesign -postRoute -incr
 optDesign -postRoute -setup
@@ -125,8 +124,7 @@ optDesign -postRoute -setup -hold
 setExtractRCMode -engine postRoute -effortLevel high 
 setOptMode -highEffortOptCells $hold_fixing_cells
 setOptMode -holdFixingCells $hold_fixing_cells
-#setOptMode -verbose true -holdTargetSlack 0.01
-#setOptMode -verbose true -setupTargetSlack 0.01
+setOptMode -verbose true -holdTargetSlack 0.07
 optDesign -postRoute -hold
 
 setAnalysisMode -analysisType onChipVariation -cppr both
@@ -137,8 +135,7 @@ optDesign -postRoute -drv
 
 setOptMode -highEffortOptCells $rm_logic_delay_cell
 setOptMode -holdFixingCells $rm_logic_delay_cell
-#setOptMode -verbose true -holdTargetSlack 0.01
-#setOptMode -verbose true -setupTargetSlack 0.01
+setOptMode -verbose true -holdTargetSlack 0.07
 optDesign -postRoute -hold
 
 #------------------------------------------------------------------------------------
